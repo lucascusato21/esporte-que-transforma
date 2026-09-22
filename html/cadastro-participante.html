@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cadastre uma criança ou adolescente nos projetos de beach tennis da ONG Esporte que Transforma.">
+    <title>Cadastro de participante | Esporte que Transforma</title>
+    <link rel="icon" href="../imagens/logomarca/favicons/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="../imagens/logomarca/favicons/icon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../imagens/logomarca/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../imagens/logomarca/site.webmanifest">
+    <meta name="theme-color" content="#123b5d">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/componentes.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="../css/navegacao.css">
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/interacoes.js" defer></script>
+</head>
+<body class="pagina-cadastro">
+    <a class="pular" href="#conteudo">Pular para o conteúdo principal</a>
+    <header class="site-header">
+        <div class="container cabecalho">
+            <a class="marca" href="../index.html" aria-label="Esporte que Transforma - página inicial"><img class="marca-logo" src="../imagens/logomarca/webp/logo-branca-horizontal-1440.webp" srcset="../imagens/logomarca/webp/logo-branca-horizontal-768.webp 768w, ../imagens/logomarca/webp/logo-branca-horizontal-1440.webp 1440w, ../imagens/logomarca/webp/logo-branca-horizontal-2172.webp 2172w" sizes="(max-width: 480px) 208px, (max-width: 768px) 240px, 272px" alt="Esporte que Transforma" width="1440" height="210"></a>
+            <nav class="navegacao" aria-label="Navegação principal">
+                <button class="menu-toggle" type="button" aria-controls="menu-principal" aria-expanded="false" hidden><span aria-hidden="true">☰</span> Menu</button>
+                <ul class="menu" id="menu-principal">
+                    <li><a href="../index.html">Início</a></li>
+                    <li class="item-submenu">
+                        <div class="projetos-controles"><a href="projetos.html">Projetos</a><button class="submenu-toggle" type="button" aria-label="Abrir projetos" aria-controls="submenu-projetos" aria-expanded="false" hidden><span aria-hidden="true">▾</span></button></div>
+                        <ul class="submenu" id="submenu-projetos" hidden>
+                            <li><a href="projetos.html">Todos os projetos</a></li><li><a href="beach-tennis-para-todos.html">Beach Tennis para Todos</a></li><li><a href="beach-tenistas-cidadaos.html">Beach Tenistas Cidadãos</a></li><li><a href="rede-solidaria.html">Rede Solidária</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="voluntariado.html">Voluntariado</a></li>
+                    <li><a href="doacao.html">Doações</a></li>
+                    <li><a href="cadastro.html" aria-current="page">Participe</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main id="conteudo" class="container">
+        <h1>Cadastro de participante</h1>
+        <p class="introducao">Inscreva uma criança ou adolescente nos projetos de beach tennis. O cadastro deve ser feito por uma pessoa responsável.</p>
+        <p class="alerta alerta-informacao" role="status">Este é um cadastro demonstrativo: os dados não são enviados nem armazenados.</p>
+        <form action="#" method="post" novalidate>
+            <fieldset>
+                <legend>Dados do participante</legend>
+                <div class="grade">
+                    <div class="campo campo-total"><label for="participante-nome">Nome completo *</label><input type="text" id="participante-nome" name="participante-nome" minlength="3" required></div>
+                    <div class="campo"><label for="participante-nascimento">Data de nascimento *</label><input type="date" id="participante-nascimento" name="participante-nascimento" required></div>
+                    <div class="campo"><label for="participante-projeto">Projeto de interesse *</label><select id="participante-projeto" name="participante-projeto" required><option value="">Selecione</option><option value="beach-tennis-para-todos">Beach Tennis para Todos</option><option value="beach-tenistas-cidadaos">Beach Tenistas Cidadãos</option><option value="rede-solidaria">Rede Solidária</option></select></div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Dados da pessoa responsável</legend>
+                <div class="grade">
+                    <div class="campo campo-total"><label for="responsavel-nome">Nome completo *</label><input type="text" id="responsavel-nome" name="responsavel-nome" autocomplete="name" required></div>
+                    <div class="campo"><label for="responsavel-email">E-mail *</label><input type="email" id="responsavel-email" name="responsavel-email" autocomplete="email" required></div>
+                    <div class="campo"><label for="responsavel-telefone">Telefone *</label><input type="tel" id="responsavel-telefone" name="responsavel-telefone" inputmode="tel" placeholder="(00) 00000-0000" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}" maxlength="15" required></div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Consentimento</legend>
+                <div class="opcao"><input type="checkbox" id="consentimento-participante" name="consentimento-participante" required><label for="consentimento-participante">Confirmo que sou responsável e autorizo o contato sobre a participação no projeto. *</label></div>
+            </fieldset>
+            <div class="acoes"><button type="submit">Enviar cadastro</button><button type="reset">Limpar formulário</button></div>
+            <p class="status-formulario" data-form-status tabindex="-1" aria-live="polite" hidden></p>
+        </form>
+    </main>
+    <footer><div class="container"><p>&copy; 2026 Esporte que Transforma. Todos os direitos reservados.</p></div></footer>
+</body>
+</html>

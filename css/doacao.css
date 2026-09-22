@@ -1,0 +1,366 @@
+/* =========================================================
+   PÁGINA DE DOAÇÃO — doacao.html
+   Mobile-first, ponto de quebra: 768 px.
+   ========================================================= */
+
+.pagina-doacao main {
+    padding-bottom: 0;
+}
+
+/* Base = celular: menos preenchimento vertical nas seções. */
+.doacao-hero,
+.secao {
+    padding: var(--espaco-7) 0;
+}
+
+.doacao-hero {
+    background: linear-gradient(120deg, #e4f3f0 0%, #f4f7f8 58%, #fff7df 100%);
+}
+
+.hero-grid,
+.materiais-grid,
+.parceria-conteudo {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-7);
+    align-items: center;
+}
+
+/* Base = celular: hero, materiais e parceria empilhados. */
+.hero-conteudo,
+.hero-imagem,
+.materiais-grid > :first-child,
+.lista-materiais,
+.parceria-conteudo > :first-child {
+    grid-column: 1 / -1;
+}
+
+.parceria-conteudo {
+    grid-template-columns: 1fr;
+}
+
+.hero-conteudo h1 {
+    max-width: 36rem;
+}
+
+.hero-conteudo > p:not(.etiqueta) {
+    max-width: 34rem;
+    font-size: var(--fonte-md);
+}
+
+.etiqueta {
+    margin: 0 0 var(--espaco-2);
+    color: var(--cor-secundaria-escura);
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.hero-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-3);
+    margin-top: var(--espaco-5);
+}
+
+.hero-acoes .botao {
+    margin-top: 0;
+}
+
+.botao-contorno {
+    border: 0.0625rem solid var(--cor-secundaria);
+    background: transparent;
+    color: var(--cor-secundaria-escura);
+}
+
+.botao-contorno:hover {
+    color: var(--cor-branco);
+}
+
+.hero-imagem {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--raio-lg);
+    background: var(--cor-primaria);
+    box-shadow: var(--sombra-destaque);
+}
+
+.hero-imagem img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+}
+
+.hero-imagem figcaption {
+    padding: var(--espaco-3) var(--espaco-4);
+    color: var(--cor-branco);
+    font-weight: 700;
+}
+
+.secao-cabecalho {
+    max-width: 43rem;
+    margin-bottom: var(--espaco-6);
+}
+
+.secao h2,
+.bloco-doacao h2,
+.parceria-conteudo h2,
+.transparencia-conteudo h2 {
+    margin-top: 0;
+}
+
+/* Base = celular: uma forma de doação por linha. */
+.formas-doacao {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaco-5);
+}
+
+.forma-doacao,
+.forma-destaque,
+.bloco-doacao {
+    padding: var(--espaco-5);
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+}
+
+.forma-destaque {
+    border-color: var(--cor-secundaria);
+    box-shadow: var(--sombra-destaque);
+}
+
+.numero-forma {
+    margin: 0 0 var(--espaco-3);
+    color: var(--cor-destaque);
+    font-weight: 800;
+}
+
+.forma-doacao h3,
+.forma-destaque h3 {
+    margin-top: 0;
+}
+
+.chave-pix {
+    overflow-wrap: anywhere;
+    flex: 1;
+    margin: 0;
+    padding: var(--espaco-3);
+    border-radius: var(--raio-sm);
+    background: #e4f3f0;
+    color: var(--cor-primaria);
+    font-weight: 800;
+}
+
+/* Base = celular: chave Pix e botão de copiar empilhados. */
+.pix-controle {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--espaco-2);
+}
+
+.botao-copiar {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: var(--espaco-2) var(--espaco-3);
+    border: 0.0625rem solid var(--cor-secundaria);
+    border-radius: var(--raio-sm);
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.botao-copiar:hover {
+    background: var(--cor-secundaria-escura);
+}
+
+.status-interacao {
+    min-height: 1.6em;
+    margin: var(--espaco-2) 0 0;
+    color: var(--cor-secundaria-escura);
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+}
+
+.nota {
+    color: var(--cor-texto-suave);
+    font-size: var(--fonte-xs);
+}
+
+.link-seta {
+    display: inline-block;
+    margin-top: var(--espaco-3);
+    color: var(--cor-secundaria-escura);
+    font-weight: 800;
+    text-decoration-thickness: 0.125rem;
+    text-underline-offset: 0.2em;
+}
+
+.link-seta span {
+    display: inline-block;
+    margin-left: var(--espaco-2);
+    transition: transform 0.2s ease;
+}
+
+.link-seta:hover span {
+    transform: translateX(0.25rem);
+}
+
+.faixa-clara {
+    background: var(--cor-branco);
+}
+
+.lista-bloco {
+    padding-left: var(--espaco-4);
+    border-left: 0.25rem solid var(--cor-destaque);
+}
+
+.lista-bloco h3 {
+    margin-top: 0;
+}
+
+ul {
+    padding-left: var(--espaco-5);
+}
+
+li + li {
+    margin-top: var(--espaco-2);
+}
+
+/* Base = celular: os dois blocos de entrega empilhados. */
+.duas-colunas-doacao {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaco-5);
+}
+
+.bloco-doacao address {
+    display: grid;
+    gap: var(--espaco-2);
+    margin: var(--espaco-5) 0;
+    font-style: normal;
+}
+
+.aviso {
+    background: #fff7df;
+    border-color: #f1d27b;
+}
+
+.faixa-escura {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.faixa-escura h2,
+.faixa-escura .etiqueta {
+    color: var(--cor-branco);
+}
+
+.parceria-conteudo > :first-child {
+    min-width: 0;
+}
+
+/* Base = celular: botão de parceria ocupa a linha toda. */
+.parceria-conteudo > .botao {
+    justify-self: start;
+    width: 100%;
+    min-width: 13rem;
+    margin-top: 0;
+    text-align: center;
+}
+
+.botao-amarelo {
+    background: var(--cor-destaque);
+    color: #261c05;
+}
+
+.botao-amarelo:hover {
+    background: #ffd477;
+    color: #261c05;
+}
+
+.transparencia {
+    background: var(--cor-fundo);
+}
+
+.transparencia-conteudo {
+    max-width: 50rem;
+    text-align: center;
+}
+
+.transparencia-conteudo .etiqueta {
+    color: var(--cor-secundaria-escura);
+}
+
+.contato-final {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--espaco-4) var(--espaco-6);
+    margin-top: var(--espaco-5);
+    font-weight: 800;
+}
+
+/* 768px — hero, materiais e parceria lado a lado; formas de doação,
+   colunas de entrega e materiais em várias colunas; controles do
+   Pix voltam a ficar em linha. */
+@media (min-width: 768px) {
+    .doacao-hero,
+    .secao {
+        padding: var(--espaco-8) 0;
+    }
+
+    .hero-conteudo,
+    .hero-imagem {
+        grid-column: span 6;
+    }
+
+    .materiais-grid > :first-child {
+        grid-column: span 5;
+    }
+
+    .lista-materiais {
+        grid-column: span 7;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .parceria-conteudo {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .parceria-conteudo > :first-child {
+        grid-column: auto;
+    }
+
+    .parceria-conteudo > .botao {
+        justify-self: end;
+        width: auto;
+    }
+
+    .formas-doacao {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .duas-colunas-doacao {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pix-controle {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .botao-copiar {
+        width: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .link-seta span {
+        transition: none;
+    }
+}

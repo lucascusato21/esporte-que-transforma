@@ -1,0 +1,68 @@
+ONG Esporte que Transforma — Single Page Application
+
+COMO ABRIR
+Extraia o ZIP (se for o caso) e abra index.html direto no navegador
+(duplo clique funciona — não precisa de servidor nem de instalação).
+Mantenha as pastas css/, js/ e imagens/ ao lado de index.html.
+
+ESTRUTURA DO PROJETO
+  index.html   -> único ponto de entrada do site (a SPA)
+  css/         -> estilos gerais, componentes, navegação e por página
+  js/          -> módulos de JavaScript (ver abaixo)
+  imagens/     -> logos e fotografias
+  html/        -> páginas originais de antes da conversão para SPA,
+                  mantidas como referência/arquivo; não fazem parte
+                  do funcionamento do site (mas continuam abrindo
+                  sozinhas, se você quiser comparar o "antes/depois")
+
+O SITE AGORA É UM SPA
+Só existe um documento HTML de verdade (index.html). O cabeçalho, o
+menu e o rodapé ficam fixos; só a área <main id="app"> é trocada a
+cada navegação, via JavaScript. Os links do menu usam data-rota (ex.:
+data-rota="projetos") e a URL muda por hash (ex.: index.html#projetos)
+usando history.pushState()/popstate — assim o botão Voltar/Avançar do
+navegador funciona, e atualizar a página em qualquer rota funciona
+também, porque o navegador sempre recarrega o único arquivo real
+(index.html) e o JavaScript lê a rota pela URL atual.
+
+MÓDULOS JAVASCRIPT (js/)
+  app.js            -> inicialização geral, define as rotas
+  templates.js       -> dados dos projetos e funções que geram o HTML
+  navegacao.js        -> rotas, histórico, foco, menu e dropdown
+  formularios.js      -> validação, máscaras e mensagens dos cadastros
+  armazenamento.js     -> salvarPreferencia/lerPreferencia/removerPreferencia (localStorage)
+  componentes.js       -> badges, alertas e toast (inclui a cópia do Pix)
+  carrossel.js         -> carrossel de imagens da página inicial
+  menu.js e interacoes.js -> mantidos sem alteração só para as páginas
+                             de referência dentro de html/ continuarem
+                             funcionando sozinhas; o SPA não usa esses
+                             dois arquivos.
+
+Nenhum desses arquivos usa import/export (módulos ES nativos): o
+projeto é distribuído para ser aberto direto como arquivo local, e o
+Chrome/Edge bloqueiam esse tipo de módulo quando a página é aberta via
+file://. Em vez disso, cada script se registra dentro de um único
+namespace (window.ONG), preservando a separação de responsabilidades
+sem depender de servidor.
+
+LOCALSTORAGE
+Só dados fictícios e não sensíveis: a última rota visitada, um
+rascunho (não sensível) do campo de texto livre do formulário de
+voluntário, e a lista de projetos favoritados (só os identificadores,
+como "beach-tennis-para-todos" — título, imagem e descrição continuam
+vindo do array original de projetos em js/templates.js). Nunca CPF,
+telefone, endereço ou data de nascimento — os cadastros continuam
+demonstrativos e não são enviados a servidor nenhum.
+Se o index.html for aberto sem nenhuma rota na URL (por exemplo, com
+duplo clique no arquivo), o site retoma automaticamente a última rota
+salva neste navegador. Se a URL já tiver uma rota (link direto,
+atualização da página ou os botões Voltar/Avançar), ela tem
+prioridade sobre o valor salvo.
+
+NAVEGAÇÃO E ACESSIBILIDADE
+Até 768px, o botão "Menu" abre e fecha os links. No desktop, a seta ao
+lado de "Projetos" abre o submenu (o link "Projetos" continua indo
+para a lista completa). Teste clique, toque, Tab, Enter, Espaço e
+Escape — Escape fecha primeiro o submenu e depois o menu móvel,
+devolvendo o foco ao botão correspondente. Depois de cada navegação
+dentro do SPA, o foco vai para o título da página carregada.

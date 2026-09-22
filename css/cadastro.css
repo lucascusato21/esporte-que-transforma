@@ -1,0 +1,244 @@
+/* =========================================================
+   PÁGINA DE CADASTRO — cadastro.html, cadastro-voluntario.html
+   e cadastro-participante.html
+   Mobile-first, ponto de quebra: 768 px.
+   ========================================================= */
+
+.pagina-cadastro .container {
+    --largura-conteudo: 56.25rem;
+}
+
+.pagina-cadastro main {
+    padding-top: var(--espaco-7);
+}
+
+.pagina-cadastro h1 {
+    text-align: center;
+}
+
+.introducao {
+    max-width: 45rem;
+    margin: 0 auto var(--espaco-6);
+    text-align: center;
+}
+
+.tipos-cadastro {
+    margin-bottom: var(--espaco-7);
+}
+
+.tipos-cadastro h2 {
+    margin-bottom: var(--espaco-5);
+    text-align: center;
+}
+
+/* Base = celular: um card de escolha por linha. */
+.tipos-cadastro-grade {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaco-5);
+}
+
+.tipo-cadastro {
+    display: flex;
+    min-height: 13rem;
+    flex-direction: column;
+    padding: var(--espaco-5);
+    border: 0.125rem solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-cartao);
+    color: var(--cor-texto);
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.tipo-cadastro:hover {
+    border-color: var(--cor-secundaria);
+    box-shadow: var(--sombra-destaque);
+    transform: translateY(-0.2rem);
+}
+
+.tipo-cadastro:active {
+    border-color: var(--cor-secundaria);
+    box-shadow: var(--sombra-cartao);
+    transform: translateY(0.0625rem);
+}
+
+.tipo-numero {
+    color: var(--cor-destaque);
+    font-weight: 800;
+}
+
+.tipo-cadastro h3 {
+    margin: var(--espaco-2) 0 0;
+}
+
+.tipo-link {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    color: var(--cor-secundaria-escura);
+    font-weight: 800;
+}
+
+.orientacao-formulario {
+    margin-top: calc(var(--espaco-2) * -1);
+    color: var(--cor-texto-suave);
+}
+
+/* Base = celular: menos preenchimento interno no formulário. */
+form {
+    padding: 1.125rem;
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: 0 0.5rem 1.5rem rgba(18, 59, 93, 0.12);
+}
+
+fieldset {
+    margin: 0 0 1.75rem;
+    padding: 1.125rem;
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: 0.625rem;
+}
+
+legend {
+    padding: 0 0.5625rem;
+    color: var(--cor-primaria);
+    font-size: var(--fonte-md);
+    font-weight: 800;
+}
+
+/* Base = celular: um campo por linha. */
+.grade {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-5);
+}
+
+.grade > * {
+    grid-column: 1 / -1;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: var(--espaco-1);
+    font-weight: 700;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.6875rem var(--espaco-3);
+    border: 0.0625rem solid var(--cor-borda-campo);
+    border-radius: 0.4375rem;
+    background: var(--cor-branco);
+    color: var(--cor-texto);
+    font: inherit;
+}
+
+textarea {
+    min-height: 7.5rem;
+    resize: vertical;
+}
+
+.ajuda {
+    margin-top: var(--espaco-1);
+    color: var(--cor-texto-suave);
+    font-size: var(--fonte-xs);
+}
+
+.opcoes {
+    display: grid;
+    gap: var(--espaco-2);
+}
+
+.opcao {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--espaco-2);
+}
+
+.opcao input {
+    width: auto;
+    margin-top: 0.375rem;
+}
+
+.opcao label {
+    margin: 0;
+    font-weight: 400;
+}
+
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-3);
+}
+
+/* Base = celular: botões de ação ocupam a largura toda. */
+.acoes button {
+    width: 100%;
+}
+
+/* Fundo, borda e cor do estado (sucesso/erro) vêm das classes
+   .alerta/.alerta-* compartilhadas em componentes.css — que sempre
+   acompanham .status-formulario quando ele fica visível — para não
+   competir com elas por especificidade igual. */
+.status-formulario {
+    font-weight: 700;
+}
+
+button {
+    padding: var(--espaco-3) var(--espaco-5);
+    border: 0;
+    border-radius: var(--raio-sm);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+}
+
+button[type="submit"] {
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+button[type="submit"]:hover {
+    background: var(--cor-secundaria-escura);
+}
+
+button[type="reset"] {
+    background: #dce5e9;
+    color: var(--cor-texto);
+}
+
+/* 768px — dois cards de escolha lado a lado e dois campos por linha
+   nos formulários (o campo-total continua ocupando a linha toda). */
+@media (min-width: 768px) {
+    .tipos-cadastro-grade {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grade > * {
+        grid-column: span 6;
+    }
+
+    .grade > .campo-total {
+        grid-column: 1 / -1;
+    }
+
+    form {
+        padding: 1.875rem;
+    }
+
+    fieldset {
+        padding: var(--espaco-5);
+    }
+
+    .acoes button {
+        width: auto;
+    }
+}

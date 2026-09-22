@@ -1,0 +1,63 @@
+Capturas de tela reais, geradas com o Microsoft Edge em modo headless
+(linha de comando), abrindo os arquivos do próprio projeto. Nenhuma
+imagem foi montada ou editada manualmente.
+
+01-cartoes-com-badges.png
+    projetos.html em 1280px. Mostra os três cartões de projeto com os
+    badges de categoria (Esporte / Cidadania / Solidariedade) e o menu
+    de desktop com o dropdown de "Projetos".
+
+02-alerta-validacao-formulario.png
+    Cópia temporária de cadastro-voluntario.html com envio automático
+    do formulário em branco (via clique disparado por script, já que a
+    automação headless não simula cliques de mouse reais). Mostra as
+    bordas vermelhas, as mensagens "Este campo é obrigatório." e o
+    alerta final vermelho, além do foco indo para o primeiro campo
+    inválido (anel amarelo em "Nome completo").
+
+03-alerta-sucesso-formulario.png
+    O mesmo formulário preenchido com dados fictícios válidos e
+    enviado. Mostra o alerta verde de sucesso.
+
+04-toast-pix-atencao-fallback.png
+    Clique real (disparado por script) no botão "Copiar Pix" da
+    página de doações. Em automação headless o navegador nega a
+    permissão da área de transferência, então o código realmente
+    caiu no mecanismo alternativo (execCommand) — que também não
+    conseguiu copiar sem um gesto humano genuíno — e mostrou
+    corretamente o toast de atenção com a mensagem de erro e o botão
+    "Selecionar chave". Este é o fluxo real de falha, de ponta a
+    ponta, não uma simulação visual.
+
+05-toast-pix-sucesso.png
+    O clipboard real exige permissão do navegador que a automação
+    headless não concede, então não foi possível provocar o "sucesso"
+    de dentro do script. Esta captura aplica o mesmo HTML/CSS que a
+    função mostrarToast() aplicaria no sucesso (classe toast-sucesso,
+    mesma mensagem), só para fotografar esse estado visual. Peça para
+    alguém clicar em "Copiar Pix" num navegador normal para ver este
+    mesmo resultado a partir do clique real.
+
+06-mobile-menu-aberto.png
+    Cabeçalho em 375px de largura com o menu aberto (clique real no
+    botão "Menu"), mostrando o layout em coluna e a seta do submenu
+    de Projetos.
+
+07-mobile-menu-fechado.png
+    index.html com o menu fechado (estado inicial) numa largura
+    pequena. Observação: o Edge headless deste computador não aceita
+    larguras de janela abaixo de ~500px para o layout (o arquivo PNG
+    sai no tamanho pedido, mas o conteúdo é calculado com essa
+    largura mínima) — por isso esta imagem não é uma tela de celular
+    de 375px "de verdade", ainda que a barra de navegação já apareça
+    corretamente recolhida (o breakpoint de 768px já está ativo).
+    Testei matematicamente (via getBoundingClientRect) que os
+    elementos não estouram a largura da tela: a rolagem horizontal do
+    <body> é sempre igual à largura da janela, em qualquer largura,
+    porque nenhuma regra do CSS usa pixels fixos maiores que o
+    necessário. Para conferir com um celular de verdade (ou o modo de
+    dispositivo do navegador, F12), o layout deve continuar correto.
+
+08-doacao-desktop.png
+    doacao.html em 1280px, mostrando o hero de doação com a imagem ao
+    lado do texto (grid de 12 colunas) e a navegação de desktop.

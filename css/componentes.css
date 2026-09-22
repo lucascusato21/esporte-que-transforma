@@ -1,0 +1,133 @@
+/* =========================================================
+   COMPONENTES COMPARTILHADOS — Unidade 2
+   Incluído em todas as páginas. Reúne badges, alertas, toast
+   e os estados de botões/links (:hover, :focus-visible,
+   :active, :disabled), evitando duplicar essas regras nos
+   CSS de cada página.
+   Ponto de quebra do toast (mobile-first): 480 px.
+   ========================================================= */
+.badge {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    border: 0.0625rem solid currentColor;
+    border-radius: 999px;
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.badge-esporte { color: var(--cor-primaria-clara); background: #e5f2f7; }
+.badge-cidadania { color: #86620b; background: #fff5d6; }
+.badge-solidariedade { color: var(--cor-secundaria-escura); background: #e2f3f0; }
+
+.alerta,
+.toast {
+    border: 0.0625rem solid;
+    border-radius: var(--raio-sm);
+    font-weight: 700;
+}
+
+.alerta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--espaco-3);
+    padding: var(--espaco-3) var(--espaco-4);
+}
+
+.alerta::before { font-weight: 900; }
+.alerta-informacao { border-color: #8bc2d8; background: #eaf7fb; color: #164f64; }
+.alerta-informacao::before { content: "i"; }
+.alerta-sucesso { border-color: #79c5b9; background: #e7f7f3; color: #155b52; }
+.alerta-sucesso::before { content: "✓"; }
+.alerta-atencao { border-color: #e7c66c; background: #fff7dc; color: #6d5006; }
+.alerta-atencao::before { content: "!"; }
+.alerta-erro { border-color: #df9a94; background: #fff0ee; color: #84251e; }
+.alerta-erro::before { content: "×"; }
+
+/* Base = celular: toast como uma faixa de largura quase total. */
+.toast {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 30;
+    display: flex;
+    max-width: none;
+    align-items: center;
+    gap: var(--espaco-3);
+    padding: var(--espaco-3) var(--espaco-3) var(--espaco-3) var(--espaco-4);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-destaque);
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast[hidden] { display: flex; opacity: 0; pointer-events: none; transform: translateY(0.75rem); }
+.toast::before { flex: 0 0 auto; font-weight: 900; }
+.toast-sucesso { border-color: var(--cor-secundaria); color: var(--cor-secundaria-escura); }
+.toast-sucesso::before { content: "✓"; }
+.toast-atencao { border-color: var(--cor-destaque); color: #6d5006; }
+.toast-atencao::before { content: "!"; }
+.toast-mensagem { flex: 1; }
+.toast-fechar,
+.toast-acao {
+    min-height: 2.25rem;
+    padding: var(--espaco-2) var(--espaco-3);
+    border: 0;
+    border-radius: var(--raio-sm);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+.toast-fechar { background: transparent; color: inherit; font-size: 1.25rem; }
+.toast-acao { background: var(--cor-secundaria); color: var(--cor-branco); }
+.toast-fechar:hover,
+.toast-acao:hover { filter: brightness(0.92); }
+
+button,
+.botao,
+.cartao-link,
+.link-seta,
+.tipo-cadastro {
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+button:active,
+.botao:active,
+.cartao-link:active,
+.link-seta:active { transform: translateY(0.0625rem); }
+
+button:disabled { cursor: not-allowed; opacity: 0.55; }
+button:disabled:hover { filter: none; transform: none; }
+
+.campo.mostrar-erro input,
+.campo.mostrar-erro select,
+.campo.mostrar-erro textarea,
+.opcao.mostrar-erro input {
+    border-color: #b42318;
+}
+
+.mensagem-campo {
+    display: block;
+    margin-top: var(--espaco-1);
+    color: #84251e;
+    font-size: var(--fonte-xs);
+    font-weight: 700;
+}
+
+.status-formulario.alerta { margin-top: var(--espaco-4); }
+
+/* 480px — em telas maiores o toast vira um cartão ancorado no canto. */
+@media (min-width: 480px) {
+    .toast { right: var(--espaco-5); bottom: var(--espaco-5); left: auto; max-width: min(28rem, calc(100vw - 2rem)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toast,
+    button,
+    .botao,
+    .cartao-link,
+    .link-seta { transition: none; }
+}

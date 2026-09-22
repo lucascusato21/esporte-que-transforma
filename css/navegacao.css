@@ -1,0 +1,36 @@
+/* Carregar depois de base.css e do CSS da página.
+   Mobile-first: o estado sem media query é o de celular (menu em
+   coluna, hambúrguer visível). A partir de 768px — mesmo limite
+   usado em js/menu.js — o menu vira uma barra horizontal e o
+   item "Projetos" ganha um dropdown, exigido no desktop. */
+.site-header { position: relative; z-index: 10; }
+.site-header .cabecalho { flex-direction: row; flex-wrap: wrap; align-items: flex-start; padding-block: var(--espaco-4); }
+.site-header .navegacao { min-width: 0; width: 100%; }
+.site-header .menu { display: flex; flex-direction: column; align-items: stretch; width: 100%; gap: var(--espaco-2); margin-top: var(--espaco-3); }
+.site-header .menu > li { display: flex; align-items: center; }
+.site-header .menu > li > a { min-height: 2.75rem; line-height: 1.2; white-space: nowrap; }
+.site-header .item-submenu { position: relative; }
+.site-header .projetos-controles { display: flex; align-items: center; justify-content: space-between; }
+.site-header button { min-width: 44px; min-height: 44px; padding: var(--espaco-2); border: 1px solid currentColor; border-radius: var(--raio-sm); color: var(--cor-branco); background: transparent; font: inherit; cursor: pointer; }
+.site-header .navegacao-pronta .menu-toggle { display: inline-flex; align-items: center; gap: var(--espaco-2); }
+.site-header .submenu { display: flex; flex-direction: column; align-items: stretch; padding: var(--espaco-2); background: var(--cor-primaria); border-radius: var(--raio-sm); }
+.site-header .navegacao-pronta .submenu { position: static; min-width: 0; box-shadow: none; margin-left: var(--espaco-4); }
+.site-header .navegacao-pronta .menu:not(.aberto) { display: none; }
+.site-header [hidden] { display: none !important; }
+.site-header button:hover, .site-header button[aria-expanded="true"] { background: rgba(255,255,255,.16); }
+.site-header :focus-visible { outline: 3px solid var(--cor-destaque); outline-offset: 3px; }
+.site-header a { overflow-wrap: anywhere; }
+.site-header .submenu-toggle span { display: inline-block; transition: transform .2s ease; }
+.site-header .submenu-toggle[aria-expanded="true"] span { transform: rotate(180deg); }
+@media (min-width: 768px) {
+    .site-header .cabecalho { align-items: center; }
+    .site-header .navegacao { width: auto; }
+    .site-header .navegacao-pronta .menu-toggle { display: none; }
+    .site-header .menu { flex-direction: row; align-items: center; width: auto; margin-top: 0; }
+    .site-header .navegacao-pronta .menu:not(.aberto) { display: flex; }
+    .site-header .projetos-controles { justify-content: flex-start; }
+    .site-header .navegacao-pronta .submenu { position: absolute; top: 100%; right: 0; min-width: 13rem; box-shadow: var(--sombra-destaque); margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .site-header .submenu-toggle span { transition: none; }
+}

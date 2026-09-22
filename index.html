@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conheça a ONG Esporte que Transforma e participe de projetos de inclusão social por meio do beach tennis.">
+    <title>Esporte que Transforma | Início</title>
+    <link rel="icon" href="imagens/logomarca/favicons/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="imagens/logomarca/favicons/icon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="imagens/logomarca/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="imagens/logomarca/site.webmanifest">
+    <meta name="theme-color" content="#123b5d">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/componentes.css">
+    <!-- O SPA é uma página só, então usa um único CSS de estilos
+         específicos (css/paginas.css reúne o que antes eram
+         index.css, projetos.css, cadastro.css e doacao.css, com as
+         classes que colidiam entre páginas escopadas por
+         .pagina-inicial/.pagina-projetos/.pagina-cadastro/.pagina-doacao).
+         Os quatro arquivos originais continuam em css/ para as
+         páginas de referência em html/, que ainda os usam sozinhas. -->
+    <link rel="stylesheet" href="css/paginas.css">
+    <link rel="stylesheet" href="css/navegacao.css">
+</head>
+<body class="pagina-inicial">
+    <a class="pular" href="#app">Pular para o conteúdo principal</a>
+
+    <header class="site-header">
+        <div class="container cabecalho">
+            <a class="marca" href="#inicio" data-rota="inicio" aria-label="Esporte que Transforma - página inicial"><img class="marca-logo" src="imagens/logomarca/webp/logo-branca-horizontal-1440.webp" srcset="imagens/logomarca/webp/logo-branca-horizontal-768.webp 768w, imagens/logomarca/webp/logo-branca-horizontal-1440.webp 1440w, imagens/logomarca/webp/logo-branca-horizontal-2172.webp 2172w" sizes="(max-width: 480px) 208px, (max-width: 768px) 240px, 272px" alt="Esporte que Transforma" width="1440" height="210"></a>
+            <nav class="navegacao" aria-label="Navegação principal">
+                <button class="menu-toggle" type="button" aria-controls="menu-principal" aria-expanded="false" hidden>
+                    <span aria-hidden="true">☰</span> Menu
+                </button>
+                <ul class="menu" id="menu-principal">
+                    <li><a href="#inicio" data-rota="inicio">Início</a></li>
+                    <li class="item-submenu">
+                        <div class="projetos-controles"><a href="#projetos" data-rota="projetos">Projetos</a><button class="submenu-toggle" type="button" aria-label="Abrir projetos" aria-controls="submenu-projetos" aria-expanded="false" hidden><span aria-hidden="true">▾</span></button></div>
+                        <ul class="submenu" id="submenu-projetos" hidden>
+                            <li><a href="#projetos" data-rota="projetos">Todos os projetos</a></li><li><a href="#beach-tennis-para-todos" data-rota="beach-tennis-para-todos">Beach Tennis para Todos</a></li><li><a href="#beach-tenistas-cidadaos" data-rota="beach-tenistas-cidadaos">Beach Tenistas Cidadãos</a></li><li><a href="#rede-solidaria" data-rota="rede-solidaria">Rede Solidária</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#voluntariado" data-rota="voluntariado">Voluntariado</a></li>
+                    <li><a href="#doacao" data-rota="doacao">Doações</a></li>
+                    <li><a href="#cadastro" data-rota="cadastro">Participe</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer>
+        <div class="container"><p>&copy; 2026 Esporte que Transforma. Todos os direitos reservados.</p></div>
+    </footer>
+
+    <div class="toast toast-sucesso" data-toast role="status" aria-live="polite" aria-atomic="true" hidden>
+        <span class="toast-mensagem" data-toast-message></span>
+        <button class="toast-acao" type="button" data-toast-action hidden>Selecionar chave</button>
+        <button class="toast-fechar" type="button" data-toast-close aria-label="Fechar aviso">&times;</button>
+    </div>
+
+    <!-- Scripts comuns (sem type="module"): o projeto é distribuído em
+         ZIP para ser aberto direto como arquivo local, e o Chrome/Edge
+         bloqueiam import/export de módulos ES quando a página é aberta
+         via file://. Em vez disso, cada arquivo se registra dentro de
+         um único namespace (window.ONG), o que já separa as
+         responsabilidades pedidas sem depender de servidor. A ordem
+         importa: cada arquivo só usa o que já foi carregado antes. -->
+    <script src="js/armazenamento.js" defer></script>
+    <script src="js/componentes.js" defer></script>
+    <script src="js/formularios.js" defer></script>
+    <script src="js/carrossel.js" defer></script>
+    <script src="js/templates.js" defer></script>
+    <script src="js/navegacao.js" defer></script>
+    <script src="js/app.js" defer></script>
+</body>
+</html>

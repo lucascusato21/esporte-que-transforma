@@ -1,0 +1,22 @@
+KIT WEB - FOTOS DO INÍCIO DA PÁGINA
+
+Este kit foi preparado para uso no site da ONG Esporte que Transforma.
+
+CONTEÚDO
+- /original : arquivos PNG originais gerados
+- /jpg      : versões otimizadas em JPG para compatibilidade universal
+- /webp     : versões otimizadas em WebP para melhor desempenho
+- /thumbs   : miniaturas para cards, previews ou loading leve
+- /html     : exemplos prontos de uso com srcset e picture
+
+PADRÃO DE USO RECOMENDADO
+- Desktop hero: 1600px
+- Laptop/tablet grande: 1280px
+- Tablet: 768px
+- Mobile: 480px
+
+COMPATIBILIDADE
+- Use <picture> com WebP e fallback JPG para abrir bem em navegadores modernos e antigos.
+- Sempre usar CSS com width: 100% e height: auto.
+- Para seção inicial/hero, preferir loading="eager" na primeira imagem principal.
+- Para demais imagens da home, usar loading="lazy".

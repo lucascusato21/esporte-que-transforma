@@ -1,0 +1,503 @@
+/* =========================================================
+   PÁGINA INICIAL — index.html
+   Pontos de quebra mobile-first (somente min-width, sem
+   sobreposição nem lacunas): 480, 768, 1024, 1280 e 1440 px.
+   1280 e 1440 são tratados em css/base.css (largura do
+   .container), compartilhado por todas as páginas.
+   ========================================================= */
+
+.hero {
+    padding: 2.5rem 0 var(--espaco-5);
+}
+
+.hero-caixa {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--raio-lg);
+    box-shadow: var(--sombra-destaque);
+}
+
+.hero-slides,
+.hero-slide,
+.hero-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Base = celular (até 767px): altura fixa para o carrossel não
+   ficar desproporcional em telas estreitas. */
+.hero-slides {
+    position: relative;
+    min-height: 35.625rem;
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.hero-slide.ativo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hero-slide img {
+    width: 100%;
+    height: 35.625rem;
+    object-fit: cover;
+}
+
+.hero-caixa::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(5, 28, 43, 0.88), rgba(5, 28, 43, 0.15));
+    content: "";
+}
+
+.hero-controles {
+    position: absolute;
+    z-index: 3;
+    right: var(--espaco-5);
+    bottom: var(--espaco-4);
+    left: var(--espaco-5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espaco-3);
+}
+
+.hero-seta,
+.hero-indicador {
+    border: 0;
+    background: rgba(9, 40, 62, 0.78);
+    color: var(--cor-branco);
+    cursor: pointer;
+}
+
+.hero-seta {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+.hero-seta:hover,
+.hero-indicador:hover,
+.hero-indicador.ativo {
+    background: var(--cor-secundaria);
+}
+
+.hero-indicadores {
+    display: flex;
+    gap: var(--espaco-2);
+}
+
+.hero-indicador {
+    width: 0.7rem;
+    height: 0.7rem;
+    padding: 0;
+    border: 0.0625rem solid var(--cor-branco);
+    border-radius: 50%;
+}
+
+/* Base = celular: o texto fica ancorado na base da imagem, em
+   largura total, para não disputar espaço com o carrossel. */
+.hero-texto {
+    position: absolute;
+    z-index: 1;
+    right: var(--espaco-5);
+    bottom: 1.875rem;
+    left: var(--espaco-5);
+    width: auto;
+    color: var(--cor-branco);
+}
+
+.hero-texto h1 {
+    color: var(--cor-branco);
+}
+
+.hero-texto p {
+    font-size: 1.15rem;
+}
+
+.hero-etiqueta,
+.etiqueta {
+    margin: 0 0 var(--espaco-2);
+    color: var(--cor-destaque);
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* Base = celular: botões do hero empilhados e centralizados. */
+.hero-acoes {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--espaco-3);
+    margin-top: var(--espaco-5);
+}
+
+.hero-acoes .botao {
+    margin-top: 0;
+}
+
+.hero-acoes .botao,
+.chamada-acoes .botao {
+    text-align: center;
+}
+
+.botao-contorno {
+    border: 0.0625rem solid currentColor;
+    background: transparent;
+    color: var(--cor-branco) !important;
+}
+
+.botao-contorno:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.botao-historia {
+    background: var(--cor-secundaria) !important;
+    color: var(--cor-branco) !important;
+}
+
+.botao-historia:hover {
+    background: var(--cor-secundaria-escura) !important;
+}
+
+.pagina-inicial .botao {
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+.pagina-inicial .botao:hover {
+    background: var(--cor-secundaria-escura);
+}
+
+.secao {
+    padding: 3.5rem 0;
+}
+
+.impacto {
+    padding: var(--espaco-7) 0;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.impacto .secao-chamada {
+    max-width: 42rem;
+}
+
+.impacto h2,
+.chamada-final h2 {
+    color: var(--cor-branco);
+}
+
+.secao-chamada {
+    max-width: 42rem;
+}
+
+.secao-chamada h2,
+.proposito-bloco h2,
+.atuacao-grid h2 {
+    margin-top: 0;
+}
+
+.impacto .etiqueta,
+.chamada-final .etiqueta {
+    color: var(--cor-destaque);
+}
+
+/* Base = celular: um número de impacto por linha. */
+.impacto-grade {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaco-4);
+    margin-top: var(--espaco-6);
+}
+
+.numero-impacto {
+    display: grid;
+    gap: var(--espaco-2);
+    padding: var(--espaco-4) 0;
+    border-top: 0.125rem solid var(--cor-secundaria);
+}
+
+.numero-impacto strong {
+    color: var(--cor-destaque);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+}
+
+.numero-impacto span {
+    color: var(--cor-rodape-texto);
+}
+
+/* Base = celular: cada bloco do grid de 12 colunas ocupa a
+   largura toda e os blocos se empilham na ordem do documento. */
+.historia-grid,
+.proposito-grid,
+.atuacao-grid,
+.chamada-final-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-5);
+    align-items: start;
+}
+
+.historia-grid > .secao-chamada,
+.proposito-bloco,
+.atuacao-grid > div,
+.texto-historia,
+.valores-bloco,
+.atuacao-lista,
+.chamada-final-grid > div:first-child {
+    grid-column: 1 / -1;
+}
+
+.chamada-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--espaco-3);
+    grid-column: 1 / -1;
+    padding-top: 0;
+}
+
+.texto-historia {
+    min-width: 0;
+    max-width: 100%;
+    font-size: var(--fonte-md);
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.texto-historia p:first-child {
+    margin-top: 0;
+    color: var(--cor-primaria);
+    font-weight: 700;
+}
+
+.proposito-bloco {
+    padding: var(--espaco-6);
+    border-radius: var(--raio-md);
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.proposito-bloco h2,
+.proposito-bloco .etiqueta {
+    color: var(--cor-branco);
+}
+
+.valores-lista,
+.atuacao-lista {
+    display: grid;
+    gap: var(--espaco-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.valores-lista div,
+.atuacao-lista li {
+    display: grid;
+    gap: var(--espaco-1);
+    padding: var(--espaco-3) 0 var(--espaco-3) var(--espaco-4);
+    border-left: 0.25rem solid var(--cor-destaque);
+}
+
+.valores-lista strong,
+.atuacao-lista strong {
+    color: var(--cor-primaria);
+}
+
+.valores-lista span,
+.atuacao-lista span {
+    color: var(--cor-texto-suave);
+}
+
+.chamada-final {
+    padding: var(--espaco-7) 0;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.botao-amarelo {
+    background: var(--cor-destaque) !important;
+    color: #261c05 !important;
+    border-color: var(--cor-destaque);
+}
+
+.botao-amarelo:hover {
+    background: #e2a62f !important;
+}
+
+.clara,
+.secao-clara {
+    background: var(--cor-branco);
+}
+
+.centro {
+    max-width: 47.5rem;
+    margin: 0 auto var(--espaco-6);
+    text-align: center;
+}
+
+/* Base = celular: um cartão de projeto por linha. */
+.grade {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-5);
+}
+
+.grade > * {
+    grid-column: 1 / -1;
+}
+
+.cartao {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    padding: var(--espaco-5);
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-cartao);
+}
+
+.cartao h3 {
+    margin-top: 0;
+}
+
+.cartao-link {
+    display: block;
+    margin-top: auto;
+    padding: var(--espaco-3) var(--espaco-5);
+    border-radius: 0.5625rem;
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.cartao-link:hover {
+    background: var(--cor-secundaria-escura);
+    transform: translateY(-0.125rem);
+}
+
+.cartao-link:active {
+    background: var(--cor-secundaria-escura);
+    transform: translateY(0.0625rem);
+}
+
+/* 480px — primeiro ponto de quebra: os números de impacto passam
+   de uma para duas colunas. */
+@media (min-width: 480px) {
+    .impacto-grade {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* 768px — segundo ponto de quebra: layout de tablet/desktop para
+   o hero, os grids de 12 colunas voltam a se distribuir lado a
+   lado e os cartões de projeto passam a duas colunas. */
+@media (min-width: 768px) {
+    .hero-slides {
+        min-height: clamp(24.375rem, 56vw, 39.375rem);
+    }
+
+    .hero-slide img {
+        height: 100%;
+    }
+
+    .hero-caixa::after {
+        background: linear-gradient(90deg, rgba(5, 28, 43, 0.82), rgba(5, 28, 43, 0.28));
+    }
+
+    .hero-controles {
+        bottom: var(--espaco-5);
+    }
+
+    .hero-texto {
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: clamp(1.5rem, 6vw, 4.5rem);
+        width: min(35rem, calc(100% - var(--espaco-7)));
+        transform: translateY(-50%);
+    }
+
+    .hero-acoes {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .hero-acoes .botao,
+    .chamada-acoes .botao {
+        text-align: left;
+    }
+
+    .historia-grid,
+    .proposito-grid,
+    .atuacao-grid,
+    .chamada-final-grid {
+        gap: var(--espaco-7);
+    }
+
+    .historia-grid > .secao-chamada,
+    .proposito-bloco,
+    .atuacao-grid > div {
+        grid-column: span 5;
+    }
+
+    .texto-historia,
+    .valores-bloco,
+    .atuacao-lista {
+        grid-column: span 7;
+    }
+
+    .chamada-final-grid > div:first-child {
+        grid-column: span 7;
+    }
+
+    .chamada-acoes {
+        justify-content: flex-end;
+        grid-column: span 5;
+        padding-top: var(--espaco-6);
+    }
+
+    .grade > * {
+        grid-column: span 6;
+    }
+}
+
+/* 1024px — terceiro ponto de quebra: espaço para os quatro números
+   de impacto lado a lado e três cartões de projeto por linha. */
+@media (min-width: 1024px) {
+    .impacto-grade {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .grade > * {
+        grid-column: span 4;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cartao-link,
+    .hero-slide {
+        transition: none;
+    }
+}

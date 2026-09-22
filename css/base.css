@@ -1,0 +1,277 @@
+/* =========================================================
+   DESIGN SYSTEM E ESTILOS COMPARTILHADOS
+   Utilizado em todas as páginas do site
+   ========================================================= */
+
+:root {
+    /* Paleta de cores */
+    --cor-primaria: #123b5d;
+    --cor-primaria-clara: #176f91;
+    --cor-secundaria: #1d9b8f;
+    --cor-secundaria-escura: #14766e;
+    --cor-destaque: #f4b942;
+    --cor-fundo: #f4f7f8;
+    --cor-texto: #263238;
+    --cor-texto-suave: #52616b;
+    --cor-branco: #ffffff;
+    --cor-borda: #d4e0e5;
+    --cor-borda-campo: #8799a2;
+    --cor-rodape: #09283e;
+    --cor-rodape-texto: #dce8ee;
+
+    /* Cinco níveis tipográficos */
+    --fonte-xs: 0.875rem;
+    --fonte-sm: 1rem;
+    --fonte-md: 1.25rem;
+    --fonte-lg: clamp(1.6rem, 3vw, 2.4rem);
+    --fonte-xl: clamp(2rem, 5vw, 4rem);
+
+    /* Escala modular baseada em 4px */
+    --espaco-1: 0.25rem;
+    --espaco-2: 0.5rem;
+    --espaco-3: 0.75rem;
+    --espaco-4: 1rem;
+    --espaco-5: 1.5rem;
+    --espaco-6: 2rem;
+    --espaco-7: 3rem;
+    --espaco-8: 4rem;
+
+    --raio-sm: 0.5rem;
+    --raio-md: 0.875rem;
+    --raio-lg: 1.5rem;
+    --sombra-cartao: 0 0.375rem 1.125rem rgba(18, 59, 93, 0.08);
+    --sombra-destaque: 0 0.625rem 1.75rem rgba(18, 59, 93, 0.15);
+    --largura-conteudo: 70rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: var(--fonte-sm);
+    line-height: 1.6;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* O amarelo de destaque sozinho não atinge 3:1 de contraste contra
+   fundos claros (só ~1,8:1). O anel extra em cor-primaria garante
+   contraste em qualquer fundo, sem trocar a cor de destaque nem
+   prejudicar o contraste já alto do amarelo sobre o cabeçalho
+   escuro (onde .site-header :focus-visible mantém só o amarelo). */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 0.1875rem solid var(--cor-destaque);
+    outline-offset: var(--espaco-1);
+    box-shadow: 0 0 0 0.0625rem var(--cor-primaria);
+}
+
+.pular {
+    position: absolute;
+    top: var(--espaco-2);
+    left: -9999px;
+    z-index: 20;
+    padding: var(--espaco-2) var(--espaco-3);
+    background: var(--cor-destaque);
+    color: #261c05;
+}
+
+.pular:focus {
+    left: var(--espaco-2);
+}
+
+.container {
+    /* A largura é definida por breakpoint mais abaixo
+       ("PONTOS DE QUEBRA"), mobile-first. */
+    margin-inline: auto;
+}
+
+header {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.cabecalho {
+    /* O gap é definido por breakpoint mais abaixo. */
+    display: flex;
+    min-height: 4.75rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.marca {
+    display: inline-flex;
+    flex: 0 1 18rem;
+    align-items: center;
+    color: var(--cor-branco);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.marca-logo {
+    display: block;
+    width: min(100%, 17rem);
+    height: auto;
+    object-fit: contain;
+}
+
+.marca picture {
+    display: block;
+    line-height: 0;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--espaco-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav a {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    padding: var(--espaco-2) var(--espaco-3);
+    border-radius: var(--raio-sm);
+    color: var(--cor-branco);
+    font-size: var(--fonte-sm);
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+main {
+    padding-bottom: var(--espaco-8);
+}
+
+h1 {
+    margin: 0 0 var(--espaco-4);
+    color: var(--cor-primaria);
+    font-size: var(--fonte-xl);
+    line-height: 1.08;
+}
+
+h2 {
+    color: var(--cor-primaria);
+    font-size: var(--fonte-lg);
+    line-height: 1.2;
+}
+
+h3 {
+    color: var(--cor-primaria);
+    font-size: var(--fonte-md);
+}
+
+.botao {
+    display: inline-block;
+    margin-top: var(--espaco-2);
+    padding: var(--espaco-3) var(--espaco-5);
+    border-radius: 0.5625rem;
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+    font-weight: 800;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.botao:hover {
+    background: var(--cor-secundaria-escura);
+    transform: translateY(-0.125rem);
+}
+
+footer {
+    padding: 1.625rem 0;
+    background: var(--cor-rodape);
+    color: var(--cor-rodape-texto);
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* =========================================================
+   PONTOS DE QUEBRA — estratégia mobile-first, somente
+   min-width, em cascata (cada faixa vale "a partir de X px").
+   Sem sobreposição e sem lacunas em larguras fracionárias:
+   qualquer largura corresponde a exatamente uma faixa vigente.
+   Faixas explícitas: 480, 768, 1024, 1280 e 1440 px.
+   ========================================================= */
+
+/* Base = celular, até 479px */
+.container {
+    width: min(var(--largura-conteudo), calc(100% - var(--espaco-5)));
+}
+
+.cabecalho {
+    gap: var(--espaco-3);
+}
+
+/* .marca é item flexível: seu tamanho no eixo principal vem do
+   flex-basis (o width não teria efeito ali). O width, sim,
+   controla o tamanho do logo (.marca-logo) dentro dela. */
+.marca {
+    flex-basis: 13rem;
+}
+
+.marca-logo {
+    width: min(100%, 13rem);
+}
+
+/* 480px — telas pequenas: mais folga lateral, marca cresce */
+@media (min-width: 480px) {
+    .container { width: min(var(--largura-conteudo), calc(100% - 2.5rem)); }
+    .cabecalho { gap: var(--espaco-4); }
+    .marca { flex-basis: 15rem; }
+    .marca-logo { width: min(100%, 15rem); }
+}
+
+/* 768px — cabeçalho recebe o espaçamento e a marca no tamanho final */
+@media (min-width: 768px) {
+    .container { width: min(var(--largura-conteudo), calc(100% - 3rem)); }
+    .cabecalho { gap: var(--espaco-5); }
+    .marca { flex-basis: 18rem; }
+    .marca-logo { width: min(100%, 17rem); }
+}
+
+/* 1024px — conteúdo ganha uma largura de leitura própria */
+@media (min-width: 1024px) {
+    .container { width: min(68rem, calc(100% - 4rem)); }
+}
+
+/* 1280px — largura de leitura um pouco maior em telas grandes */
+@media (min-width: 1280px) {
+    .container { width: min(72rem, calc(100% - 5rem)); }
+}
+
+/* 1440px — telas muito grandes: largura máxima do conteúdo */
+@media (min-width: 1440px) {
+    .container { width: min(76rem, calc(100% - 6rem)); }
+}
+
+/* Os estilos do cabeçalho e da navegação (.site-header) ficam só em
+   css/navegacao.css, que é carregado por último em todas as páginas. */

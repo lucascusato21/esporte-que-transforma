@@ -1,0 +1,113 @@
+/* =========================================================
+   PÁGINA DE PROJETOS — projetos.html (também usado por
+   voluntariado.html e pelas páginas de cada projeto)
+   Mobile-first, pontos de quebra: 768 e 1024 px.
+   ========================================================= */
+
+.pagina-projetos main {
+    padding-top: var(--espaco-7);
+}
+
+.introducao {
+    max-width: 48.75rem;
+    margin: 0 auto var(--espaco-7);
+    text-align: center;
+}
+
+.projeto-imagem {
+    margin: 0 auto var(--espaco-6);
+    overflow: hidden;
+    border-radius: var(--raio-lg);
+    box-shadow: var(--sombra-destaque);
+}
+
+.projeto-imagem img {
+    width: 100%;
+    aspect-ratio: 16 / 6;
+    object-fit: cover;
+}
+
+.projeto-imagem figcaption {
+    padding: var(--espaco-3) var(--espaco-4);
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Base = celular: um item por linha em ambos os grids. */
+.grade,
+.duas-colunas {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-5);
+}
+
+.grade > *,
+.duas-colunas > * {
+    grid-column: 1 / -1;
+}
+
+.cartao,
+.bloco {
+    padding: var(--espaco-5);
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-cartao);
+}
+
+.cartao {
+    display: flex;
+    flex-direction: column;
+}
+
+.cartao h3,
+.bloco h2 {
+    margin-top: 0;
+}
+
+.botao-projeto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-self: stretch;
+    margin-top: auto;
+    text-align: center;
+}
+
+.botao-projeto span {
+    margin-left: var(--espaco-3);
+    font-size: 1.2em;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.botao-projeto:hover span {
+    transform: translateX(0.25rem);
+}
+
+.bloco {
+    margin-top: var(--espaco-6);
+}
+
+/* 768px — dois cartões por linha e as duas colunas lado a lado. */
+@media (min-width: 768px) {
+    .grade > *,
+    .duas-colunas > * {
+        grid-column: span 6;
+    }
+}
+
+/* 1024px — três cartões de projeto por linha. */
+@media (min-width: 1024px) {
+    .grade > * {
+        grid-column: span 4;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .botao-projeto span {
+        transition: none;
+    }
+}

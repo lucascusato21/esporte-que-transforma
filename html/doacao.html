@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Saiba como apoiar os projetos de beach tennis da ONG Esporte que Transforma com doações financeiras, materiais e parcerias.">
+    <title>Faça uma doação | Esporte que Transforma</title>
+    <link rel="icon" href="../imagens/logomarca/favicons/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="../imagens/logomarca/favicons/icon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../imagens/logomarca/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../imagens/logomarca/site.webmanifest">
+    <meta name="theme-color" content="#123b5d">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/componentes.css">
+    <link rel="stylesheet" href="../css/doacao.css">
+    <link rel="stylesheet" href="../css/navegacao.css">
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/interacoes.js" defer></script>
+</head>
+<body class="pagina-doacao">
+    <a class="pular" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <header class="site-header">
+        <div class="container cabecalho">
+            <a class="marca" href="../index.html" aria-label="Esporte que Transforma - página inicial">
+                <picture>
+                    <source media="(max-width: 480px)" srcset="../imagens/logomarca/webp/logo-branca-horizontal-768.webp">
+                    <source media="(max-width: 768px)" srcset="../imagens/logomarca/webp/logo-branca-horizontal-1440.webp">
+                    <img class="marca-logo" src="../imagens/logomarca/webp/logo-branca-horizontal-1440.webp" alt="Esporte que Transforma" width="1440" height="210">
+                </picture>
+            </a>
+            <nav class="navegacao" aria-label="Navegação principal">
+                <button class="menu-toggle" type="button" aria-controls="menu-principal" aria-expanded="false" hidden>
+                    <span aria-hidden="true">☰</span> Menu
+                </button>
+                <ul class="menu" id="menu-principal">
+                    <li><a href="../index.html">Início</a></li>
+                    <li class="item-submenu">
+                        <div class="projetos-controles"><a href="projetos.html">Projetos</a><button class="submenu-toggle" type="button" aria-label="Abrir projetos" aria-controls="submenu-projetos" aria-expanded="false" hidden><span aria-hidden="true">▾</span></button></div>
+                        <ul class="submenu" id="submenu-projetos" hidden>
+                            <li><a href="projetos.html">Todos os projetos</a></li><li><a href="beach-tennis-para-todos.html">Beach Tennis para Todos</a></li><li><a href="beach-tenistas-cidadaos.html">Beach Tenistas Cidadãos</a></li><li><a href="rede-solidaria.html">Rede Solidária</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="voluntariado.html">Voluntariado</a></li>
+                    <li><a href="doacao.html" aria-current="page">Doações</a></li>
+                    <li><a href="cadastro.html">Participe</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="conteudo">
+        <section class="doacao-hero" aria-labelledby="titulo-principal">
+            <div class="container hero-grid">
+                <div class="hero-conteudo">
+                    <p class="etiqueta">Rede solidária</p>
+                    <h1 id="titulo-principal">Sua doação coloca oportunidades em movimento</h1>
+                    <p>Com a sua ajuda, mantemos atividades esportivas gratuitas, compramos materiais e ampliamos o atendimento a crianças e adolescentes.</p>
+                    <div class="hero-acoes">
+                        <a class="botao" href="#doacao-financeira">Doar agora</a>
+                        <a class="botao botao-contorno" href="#materiais">Ver materiais aceitos</a>
+                    </div>
+                </div>
+                <figure class="hero-imagem">
+                        <picture>
+                            <source media="(max-width: 600px)" srcset="../imagens/ong-esporte-mobile.webp" type="image/webp">
+                            <source media="(max-width: 1024px)" srcset="../imagens/ong-esporte-tablet.webp" type="image/webp">
+                            <img src="../imagens/ong-esporte-desktop.webp" alt="Grupo de crianças participando de uma atividade de beach tennis com um educador" width="1600" height="900">
+                        </picture>
+                    <figcaption>Juntos, criamos caminhos para o futuro.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="secao" id="doacao-financeira" aria-labelledby="titulo-financeira">
+            <div class="container">
+                <div class="secao-cabecalho">
+                    <p class="etiqueta">Contribuição financeira</p>
+                    <h2 id="titulo-financeira">Doe do jeito que for melhor para você</h2>
+                    <p>Qualquer valor ajuda a manter nossos projetos ativos. Para facilitar, disponibilizamos Pix e atendimento para outras formas de contribuição.</p>
+                </div>
+                <div class="formas-doacao">
+                    <article class="forma-destaque">
+                        <p class="numero-forma">01</p>
+                        <h3>Pix</h3>
+                        <p>Use nossa chave Pix por e-mail:</p>
+                        <div class="pix-controle">
+                            <p class="chave-pix">contato@esportequetransforma.org.br</p>
+                            <button class="botao-copiar" type="button" data-copiar-pix="contato@esportequetransforma.org.br">Copiar Pix</button>
+                        </div>
+                        <p class="status-interacao" data-pix-status aria-live="polite"></p>
+                        <p class="nota">Depois de doar, envie o comprovante para facilitar a identificação e o agradecimento.</p>
+                        <a class="botao" href="mailto:contato@esportequetransforma.org.br?subject=Comprovante%20de%20doacao">Enviar comprovante</a>
+                    </article>
+                    <article class="forma-doacao">
+                        <p class="numero-forma">02</p>
+                        <h3>Transferência ou depósito</h3>
+                        <p>Fale com a equipe para receber os dados bancários atualizados e as orientações para identificar sua contribuição.</p>
+                        <a class="link-seta" href="mailto:contato@esportequetransforma.org.br?subject=Dados%20para%20doacao">Solicitar dados bancários <span aria-hidden="true">→</span></a>
+                    </article>
+                    <article class="forma-doacao">
+                        <p class="numero-forma">03</p>
+                        <h3>Doação recorrente</h3>
+                        <p>Uma contribuição mensal ajuda a planejar as atividades, comprar materiais e manter o atendimento durante todo o ano.</p>
+                        <a class="link-seta" href="mailto:contato@esportequetransforma.org.br?subject=Doacao%20recorrente">Quero contribuir mensalmente <span aria-hidden="true">→</span></a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="secao faixa-clara" id="materiais" aria-labelledby="titulo-materiais">
+            <div class="container materiais-grid">
+                <div>
+                    <p class="etiqueta">Doação de itens</p>
+                    <h2 id="titulo-materiais">Materiais que fazem a diferença</h2>
+                    <p>Aceitamos itens novos ou usados em bom estado, higienizados e seguros para uso. Antes de levar materiais volumosos, confirme a necessidade com a equipe.</p>
+                    <a class="botao" href="#entrega">Ver como entregar</a>
+                </div>
+                <div class="lista-materiais">
+                    <div class="lista-bloco">
+                        <h3>Esporte e atividades</h3>
+                        <ul>
+                            <li>Raquetes e bolas próprias para beach tennis</li>
+                            <li>Redes, postes, fitas de demarcação e cones</li>
+                            <li>Coletes, bonés e toalhas para as atividades</li>
+                            <li>Garrafas de água, caixas térmicas e bolsas esportivas</li>
+                        </ul>
+                    </div>
+                    <div class="lista-bloco">
+                        <h3>Apoio aos projetos</h3>
+                        <ul>
+                            <li>Alimentos não perecíveis</li>
+                            <li>Materiais escolares e de escritório</li>
+                            <li>Produtos de higiene e limpeza</li>
+                            <li>Computadores e periféricos em funcionamento</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="secao" id="entrega" aria-labelledby="titulo-entrega">
+            <div class="container duas-colunas-doacao">
+                <article class="bloco-doacao">
+                    <p class="etiqueta">Entrega de materiais</p>
+                    <h2 id="titulo-entrega">Combine antes de trazer</h2>
+                    <p>Assim conseguimos organizar o recebimento e confirmar se o item atende a uma necessidade atual.</p>
+                    <address>
+                        <span><strong>Local:</strong> Rua da Cidadania, 100 – São Paulo/SP</span>
+                        <span><strong>Atendimento:</strong> segunda a sexta, das 9h às 17h</span>
+                        <span><strong>Contato:</strong> <a href="tel:+551140001234">(11) 4000-1234</a></span>
+                    </address>
+                    <a class="link-seta" href="mailto:contato@esportequetransforma.org.br?subject=Entrega%20de%20materiais">Combinar uma entrega <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="bloco-doacao aviso">
+                    <p class="etiqueta">Importante</p>
+                    <h2>O que não recebemos</h2>
+                    <p class="alerta alerta-atencao">Por segurança e organização, não recebemos itens quebrados, sujos, vencidos, armas, bebidas alcoólicas ou materiais sem condição de uso.</p>
+                    <p>Tem um item diferente em mente? Entre em contato. A equipe orienta a melhor forma de ajudar.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="secao faixa-escura" aria-labelledby="titulo-parcerias">
+            <div class="container parceria-conteudo">
+                <div>
+                    <p class="etiqueta">Para empresas e parceiros</p>
+                    <h2 id="titulo-parcerias">Apoie uma frente de atuação</h2>
+                    <p>Empresas podem patrocinar turmas, campanhas, eventos ou a compra de equipamentos. Montamos uma proposta de parceria de acordo com cada realidade.</p>
+                </div>
+                <a class="botao botao-amarelo" href="mailto:contato@esportequetransforma.org.br?subject=Parceria%20com%20a%20ONG">Conversar sobre parceria</a>
+            </div>
+        </section>
+
+        <section class="secao transparencia" aria-labelledby="titulo-transparencia">
+            <div class="container transparencia-conteudo">
+                <p class="etiqueta">Compromisso</p>
+                <h2 id="titulo-transparencia">Sua confiança também transforma</h2>
+                <p>Registramos as doações recebidas e direcionamos os recursos para a manutenção dos projetos. Para saber como sua contribuição foi utilizada ou solicitar um recibo, fale com a nossa equipe.</p>
+                <div class="contato-final">
+                    <a href="mailto:contato@esportequetransforma.org.br">contato@esportequetransforma.org.br</a>
+                    <a href="tel:+551140001234">(11) 4000-1234</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container"><p>&copy; 2026 Esporte que Transforma. Todos os direitos reservados.</p></div>
+    </footer>
+    <div class="toast toast-sucesso" data-toast role="status" aria-live="polite" aria-atomic="true" hidden>
+        <span class="toast-mensagem" data-toast-message></span>
+        <button class="toast-acao" type="button" data-toast-action hidden>Selecionar chave</button>
+        <button class="toast-fechar" type="button" data-toast-close aria-label="Fechar aviso">&times;</button>
+    </div>
+</body>
+</html>

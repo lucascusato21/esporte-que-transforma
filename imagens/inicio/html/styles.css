@@ -1,0 +1,2 @@
+.hero-img, .home-img {display:block; width:100%; height:auto; border-radius:18px; object-fit:cover;}
+.hero-wrap{max-width:1600px; margin:0 auto;}

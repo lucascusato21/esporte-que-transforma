@@ -1,0 +1,29 @@
+ESPORTE QUE TRANSFORMA — KIT WEB RESPONSIVO
+
+Este pacote foi preparado para desktop, tablet e celular.
+
+FORMATOS
+- PNG: fallback universal, mantém transparência e funciona amplamente nos navegadores.
+- WebP: versão otimizada, menor e indicada para navegadores modernos.
+- ICO/PNG: favicons e ícones para navegador, iPhone/iPad e Android.
+
+PASTAS
+- png/: logos em PNG transparente.
+- webp/: logos WebP otimizadas.
+- favicons/: favicon.ico, Apple Touch Icon e ícones 16/32/48/180/192/512.
+- social/: Open Graph 1200x630 para compartilhamento em WhatsApp, Facebook e similares.
+- assets/: cópia pronta para colocar na pasta pública do site.
+
+USO RECOMENDADO
+- Cabeçalho: logo-horizontal.
+- Seção institucional: logo-principal.
+- Fundo escuro: logo-branca-horizontal.
+- Favicon/app: arquivos da pasta favicons.
+- Para responsividade, use <picture>, srcset e sizes do arquivo logo-responsiva.html.
+- No CSS mantenha width responsivo e height:auto para não deformar a marca.
+
+COMPATIBILIDADE
+A combinação WebP + PNG fallback foi escolhida para boa performance e compatibilidade ampla. O PNG permanece como alternativa segura quando WebP não for usado.
+
+OBSERVAÇÃO SOBRE SVG
+A arte original disponível é rasterizada. Por isso este kit não inclui um SVG falso. Para obter SVG realmente vetorial e escalável sem perda, a marca precisa ser vetorizada/redesenhada em curvas.

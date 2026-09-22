@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cadastro para voluntários, doadores e parceiros da ONG Esporte que Transforma.">
+    <title>Cadastro | Esporte que Transforma</title>
+    <link rel="icon" href="../imagens/logomarca/favicons/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="../imagens/logomarca/favicons/icon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../imagens/logomarca/favicons/apple-touch-icon.png">
+    <link rel="manifest" href="../imagens/logomarca/site.webmanifest">
+    <meta name="theme-color" content="#123b5d">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/componentes.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="../css/navegacao.css">
+    <script src="../js/menu.js" defer></script>
+</head>
+<body class="pagina-cadastro">
+    <a class="pular" href="#conteudo">Pular para o conteúdo principal</a>
+
+    <header class="site-header">
+        <div class="container cabecalho">
+            <a class="marca" href="../index.html" aria-label="Esporte que Transforma - página inicial"><img class="marca-logo" src="../imagens/logomarca/webp/logo-branca-horizontal-1440.webp" srcset="../imagens/logomarca/webp/logo-branca-horizontal-768.webp 768w, ../imagens/logomarca/webp/logo-branca-horizontal-1440.webp 1440w, ../imagens/logomarca/webp/logo-branca-horizontal-2172.webp 2172w" sizes="(max-width: 480px) 208px, (max-width: 768px) 240px, 272px" alt="Esporte que Transforma" width="1440" height="210"></a>
+            <nav class="navegacao" aria-label="Navegação principal">
+                <button class="menu-toggle" type="button" aria-controls="menu-principal" aria-expanded="false" hidden>
+                    <span aria-hidden="true">☰</span> Menu
+                </button>
+                <ul class="menu" id="menu-principal">
+                    <li><a href="../index.html">Início</a></li>
+                    <li class="item-submenu">
+                        <div class="projetos-controles"><a href="projetos.html">Projetos</a><button class="submenu-toggle" type="button" aria-label="Abrir projetos" aria-controls="submenu-projetos" aria-expanded="false" hidden><span aria-hidden="true">▾</span></button></div>
+                        <ul class="submenu" id="submenu-projetos" hidden>
+                            <li><a href="projetos.html">Todos os projetos</a></li><li><a href="beach-tennis-para-todos.html">Beach Tennis para Todos</a></li><li><a href="beach-tenistas-cidadaos.html">Beach Tenistas Cidadãos</a></li><li><a href="rede-solidaria.html">Rede Solidária</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="voluntariado.html">Voluntariado</a></li>
+                    <li><a href="doacao.html">Doações</a></li>
+                    <li><a href="cadastro.html" aria-current="page">Participe</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="conteudo" class="container pagina-escolha">
+        <h1>Escolha seu cadastro</h1>
+        <p class="introducao">Existem duas formas de fazer parte da Esporte que Transforma. Escolha o cadastro que combina com você.</p>
+
+        <section class="tipos-cadastro" aria-labelledby="titulo-tipos">
+            <h2 id="titulo-tipos">Como você quer participar?</h2>
+            <div class="tipos-cadastro-grade">
+                <a class="tipo-cadastro" href="cadastro-voluntario.html">
+                    <span class="tipo-numero">01</span>
+                    <h3>Quero ser voluntário</h3>
+                    <p>Ajude nas aulas, cursos, workshops, eventos, torneios e ações da ONG.</p>
+                    <span class="tipo-link">Abrir cadastro <span aria-hidden="true">→</span></span>
+                </a>
+                <a class="tipo-cadastro" href="cadastro-participante.html">
+                    <span class="tipo-numero">02</span>
+                    <h3>Quero participar do projeto</h3>
+                    <p>Inscreva uma criança ou adolescente para conhecer as atividades de beach tennis.</p>
+                    <span class="tipo-link">Abrir cadastro <span aria-hidden="true">→</span></span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container"><p>&copy; 2026 Esporte que Transforma. Todos os direitos reservados.</p></div>
+    </footer>
+</body>
+</html>

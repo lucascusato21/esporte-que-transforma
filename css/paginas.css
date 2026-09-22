@@ -1,0 +1,1330 @@
+/* =========================================================
+   ESTILOS ESPECÍFICOS DAS PÁGINAS — arquivo único, sempre
+   carregado (o SPA é uma página só; não faz sentido trocar de
+   stylesheet por rota). Reúne o que antes eram index.css,
+   projetos.css, cadastro.css e doacao.css.
+
+   Como cada uma dessas quatro páginas tinha classes com o MESMO
+   NOME e regras DIFERENTES (.grade, .introducao, .etiqueta,
+   .secao, .botao-contorno, .botao-amarelo, .hero-acoes), as
+   regras que colidiam foram prefixadas pela classe de página
+   correspondente no <body> (.pagina-inicial, .pagina-projetos,
+   .pagina-cadastro, .pagina-doacao) — a mesma classe que
+   js/navegacao.js já define a cada troca de rota. As demais
+   classes (nomes únicos, sem colisão) continuam sem prefixo.
+   ========================================================= */
+
+
+/* =====================================================
+   PÁGINA INICIAL (.pagina-inicial) — rota "inicio"
+   Mobile-first, pontos de quebra: 480, 768, 1024 px.
+   ===================================================== */
+
+.hero {
+    padding: 2.5rem 0 var(--espaco-5);
+}
+
+.hero-caixa {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--raio-lg);
+    box-shadow: var(--sombra-destaque);
+}
+
+.hero-slides,
+.hero-slide,
+.hero-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Base = celular (até 767px): altura fixa para o carrossel não
+   ficar desproporcional em telas estreitas. */
+.hero-slides {
+    position: relative;
+    min-height: 35.625rem;
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.hero-slide.ativo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hero-slide img {
+    width: 100%;
+    height: 35.625rem;
+    object-fit: cover;
+}
+
+.hero-caixa::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(5, 28, 43, 0.88), rgba(5, 28, 43, 0.15));
+    content: "";
+}
+
+.hero-controles {
+    position: absolute;
+    z-index: 3;
+    right: var(--espaco-5);
+    bottom: var(--espaco-4);
+    left: var(--espaco-5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espaco-3);
+}
+
+.hero-seta,
+.hero-indicador {
+    border: 0;
+    background: rgba(9, 40, 62, 0.78);
+    color: var(--cor-branco);
+    cursor: pointer;
+}
+
+.hero-seta {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+.hero-seta:hover,
+.hero-indicador:hover,
+.hero-indicador.ativo {
+    background: var(--cor-secundaria);
+}
+
+.hero-indicadores {
+    display: flex;
+    gap: var(--espaco-2);
+}
+
+.hero-indicador {
+    width: 0.7rem;
+    height: 0.7rem;
+    padding: 0;
+    border: 0.0625rem solid var(--cor-branco);
+    border-radius: 50%;
+}
+
+/* Base = celular: o texto fica ancorado na base da imagem, em
+   largura total, para não disputar espaço com o carrossel. */
+.hero-texto {
+    position: absolute;
+    z-index: 1;
+    right: var(--espaco-5);
+    bottom: 1.875rem;
+    left: var(--espaco-5);
+    width: auto;
+    color: var(--cor-branco);
+}
+
+.hero-texto h1 {
+    color: var(--cor-branco);
+}
+
+.hero-texto p {
+    font-size: 1.15rem;
+}
+
+.hero-etiqueta {
+    margin: 0 0 var(--espaco-2);
+    color: var(--cor-destaque);
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* .etiqueta colide entre páginas (cor diferente em cada uma),
+   por isso fica escopada aqui. */
+.pagina-inicial .etiqueta {
+    margin: 0 0 var(--espaco-2);
+    color: var(--cor-destaque);
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* Base = celular: botões do hero empilhados e centralizados.
+   .hero-acoes também colide com a versão da página de doação. */
+.pagina-inicial .hero-acoes {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--espaco-3);
+    margin-top: var(--espaco-5);
+}
+
+.pagina-inicial .hero-acoes .botao {
+    margin-top: 0;
+}
+
+.pagina-inicial .hero-acoes .botao,
+.chamada-acoes .botao {
+    text-align: center;
+}
+
+.pagina-inicial .botao-contorno {
+    border: 0.0625rem solid currentColor;
+    background: transparent;
+    color: var(--cor-branco) !important;
+}
+
+.pagina-inicial .botao-contorno:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.botao-historia {
+    background: var(--cor-secundaria) !important;
+    color: var(--cor-branco) !important;
+}
+
+.botao-historia:hover {
+    background: var(--cor-secundaria-escura) !important;
+}
+
+.pagina-inicial .botao {
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+.pagina-inicial .botao:hover {
+    background: var(--cor-secundaria-escura);
+}
+
+/* .secao colide com a versão (responsiva) da página de doação. */
+.pagina-inicial .secao {
+    padding: 3.5rem 0;
+}
+
+.impacto {
+    padding: var(--espaco-7) 0;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.impacto .secao-chamada {
+    max-width: 42rem;
+}
+
+.impacto h2,
+.chamada-final h2 {
+    color: var(--cor-branco);
+}
+
+.secao-chamada {
+    max-width: 42rem;
+}
+
+.secao-chamada h2,
+.proposito-bloco h2,
+.atuacao-grid h2 {
+    margin-top: 0;
+}
+
+.impacto .etiqueta,
+.chamada-final .etiqueta {
+    color: var(--cor-destaque);
+}
+
+/* Base = celular: um número de impacto por linha. */
+.impacto-grade {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaco-4);
+    margin-top: var(--espaco-6);
+}
+
+.numero-impacto {
+    display: grid;
+    gap: var(--espaco-2);
+    padding: var(--espaco-4) 0;
+    border-top: 0.125rem solid var(--cor-secundaria);
+}
+
+.numero-impacto strong {
+    color: var(--cor-destaque);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+}
+
+.numero-impacto span {
+    color: var(--cor-rodape-texto);
+}
+
+/* Base = celular: cada bloco do grid de 12 colunas ocupa a
+   largura toda e os blocos se empilham na ordem do documento. */
+.historia-grid,
+.proposito-grid,
+.atuacao-grid,
+.chamada-final-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-5);
+    align-items: start;
+}
+
+.historia-grid > .secao-chamada,
+.proposito-bloco,
+.atuacao-grid > div,
+.texto-historia,
+.valores-bloco,
+.atuacao-lista,
+.chamada-final-grid > div:first-child {
+    grid-column: 1 / -1;
+}
+
+.chamada-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--espaco-3);
+    grid-column: 1 / -1;
+    padding-top: 0;
+}
+
+.texto-historia {
+    min-width: 0;
+    max-width: 100%;
+    font-size: var(--fonte-md);
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.texto-historia p:first-child {
+    margin-top: 0;
+    color: var(--cor-primaria);
+    font-weight: 700;
+}
+
+.proposito-bloco {
+    padding: var(--espaco-6);
+    border-radius: var(--raio-md);
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.proposito-bloco h2,
+.proposito-bloco .etiqueta {
+    color: var(--cor-branco);
+}
+
+.valores-lista,
+.atuacao-lista {
+    display: grid;
+    gap: var(--espaco-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.valores-lista div,
+.atuacao-lista li {
+    display: grid;
+    gap: var(--espaco-1);
+    padding: var(--espaco-3) 0 var(--espaco-3) var(--espaco-4);
+    border-left: 0.25rem solid var(--cor-destaque);
+}
+
+.valores-lista strong,
+.atuacao-lista strong {
+    color: var(--cor-primaria);
+}
+
+.valores-lista span,
+.atuacao-lista span {
+    color: var(--cor-texto-suave);
+}
+
+.chamada-final {
+    padding: var(--espaco-7) 0;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+/* .botao-amarelo colide com a versão (sem !important, hover
+   diferente) da página de doação. */
+.pagina-inicial .botao-amarelo {
+    background: var(--cor-destaque) !important;
+    color: #261c05 !important;
+    border-color: var(--cor-destaque);
+}
+
+.pagina-inicial .botao-amarelo:hover {
+    background: #e2a62f !important;
+}
+
+.clara,
+.secao-clara {
+    background: var(--cor-branco);
+}
+
+.centro {
+    max-width: 47.5rem;
+    margin: 0 auto var(--espaco-6);
+    text-align: center;
+}
+
+/* .grade colide entre inicial/projetos/cadastro (número final de
+   colunas e regras extras variam). */
+.pagina-inicial .grade {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-5);
+}
+
+.pagina-inicial .grade > * {
+    grid-column: 1 / -1;
+}
+
+.cartao {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    padding: var(--espaco-5);
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-cartao);
+}
+
+.cartao h3 {
+    margin-top: 0;
+}
+
+.cartao-link {
+    display: block;
+    margin-top: auto;
+    padding: var(--espaco-3) var(--espaco-5);
+    border-radius: 0.5625rem;
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.cartao-link:hover {
+    background: var(--cor-secundaria-escura);
+    transform: translateY(-0.125rem);
+}
+
+.cartao-link:active {
+    background: var(--cor-secundaria-escura);
+    transform: translateY(0.0625rem);
+}
+
+/* Botão "Salvar projeto" / "Remover dos favoritos": ação secundária
+   dentro do cartão, entre a descrição e o link principal. */
+.botao-favorito {
+    margin-top: var(--espaco-3);
+    padding: var(--espaco-2) var(--espaco-4);
+    border: 0.0625rem solid var(--cor-secundaria);
+    border-radius: var(--raio-sm);
+    background: transparent;
+    color: var(--cor-secundaria-escura);
+    font: inherit;
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+}
+
+.botao-favorito:hover,
+.botao-favorito[aria-pressed="true"] {
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+@media (min-width: 480px) {
+    .impacto-grade {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .pagina-inicial .hero-slides {
+        min-height: clamp(24.375rem, 56vw, 39.375rem);
+    }
+
+    .pagina-inicial .hero-slide img {
+        height: 100%;
+    }
+
+    .pagina-inicial .hero-caixa::after {
+        background: linear-gradient(90deg, rgba(5, 28, 43, 0.82), rgba(5, 28, 43, 0.28));
+    }
+
+    .pagina-inicial .hero-controles {
+        bottom: var(--espaco-5);
+    }
+
+    .pagina-inicial .hero-texto {
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: clamp(1.5rem, 6vw, 4.5rem);
+        width: min(35rem, calc(100% - var(--espaco-7)));
+        transform: translateY(-50%);
+    }
+
+    .pagina-inicial .hero-acoes {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .pagina-inicial .hero-acoes .botao,
+    .chamada-acoes .botao {
+        text-align: left;
+    }
+
+    .historia-grid,
+    .proposito-grid,
+    .atuacao-grid,
+    .chamada-final-grid {
+        gap: var(--espaco-7);
+    }
+
+    .historia-grid > .secao-chamada,
+    .proposito-bloco,
+    .atuacao-grid > div {
+        grid-column: span 5;
+    }
+
+    .texto-historia,
+    .valores-bloco,
+    .atuacao-lista {
+        grid-column: span 7;
+    }
+
+    .chamada-final-grid > div:first-child {
+        grid-column: span 7;
+    }
+
+    .chamada-acoes {
+        justify-content: flex-end;
+        grid-column: span 5;
+        padding-top: var(--espaco-6);
+    }
+
+    .pagina-inicial .grade > * {
+        grid-column: span 6;
+    }
+}
+
+@media (min-width: 1024px) {
+    .impacto-grade {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .pagina-inicial .grade > * {
+        grid-column: span 4;
+    }
+}
+
+
+/* =====================================================
+   PÁGINA PROJETOS (.pagina-projetos) — rotas "projetos",
+   "voluntariado" e as três páginas de cada projeto
+   Mobile-first, pontos de quebra: 768 e 1024 px.
+   ===================================================== */
+
+.pagina-projetos main,
+.pagina-projetos #app {
+    padding-top: var(--espaco-7);
+}
+
+/* .introducao colide com a versão (largura/margem diferentes)
+   da página de cadastro. */
+.pagina-projetos .introducao {
+    max-width: 48.75rem;
+    margin: 0 auto var(--espaco-7);
+    text-align: center;
+}
+
+.projeto-imagem {
+    margin: 0 auto var(--espaco-6);
+    overflow: hidden;
+    border-radius: var(--raio-lg);
+    box-shadow: var(--sombra-destaque);
+}
+
+.projeto-imagem img {
+    width: 100%;
+    aspect-ratio: 16 / 6;
+    object-fit: cover;
+}
+
+.projeto-imagem figcaption {
+    padding: var(--espaco-3) var(--espaco-4);
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Base = celular: um item por linha em ambos os grids.
+   .grade colide entre inicial/projetos/cadastro. */
+.pagina-projetos .grade,
+.pagina-projetos .duas-colunas {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-5);
+}
+
+.pagina-projetos .grade > *,
+.pagina-projetos .duas-colunas > * {
+    grid-column: 1 / -1;
+}
+
+.bloco {
+    padding: var(--espaco-5);
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-cartao);
+}
+
+.bloco h2 {
+    margin-top: 0;
+}
+
+/* Cabeçalho da seção "Nossos projetos" + botão de filtro por
+   favoritos: empilhado no celular, lado a lado a partir de 480px. */
+.cabecalho-projetos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--espaco-3);
+    margin-bottom: var(--espaco-5);
+}
+
+.cabecalho-projetos h2 {
+    margin: 0;
+}
+
+.acoes-favoritos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-3);
+}
+
+.botao-filtro-favoritos {
+    flex: 0 0 auto;
+    padding: var(--espaco-2) var(--espaco-4);
+    border: 0.0625rem solid var(--cor-secundaria);
+    border-radius: var(--raio-sm);
+    background: transparent;
+    color: var(--cor-secundaria-escura);
+    font: inherit;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.botao-filtro-favoritos:hover,
+.botao-filtro-favoritos[aria-pressed="true"] {
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+.botao-limpar-favoritos {
+    flex: 0 0 auto;
+    padding: var(--espaco-2) var(--espaco-4);
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: var(--raio-sm);
+    background: transparent;
+    color: var(--cor-primaria);
+    font: inherit;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.botao-limpar-favoritos:hover {
+    border-color: var(--cor-primaria);
+    background: #eef3f6;
+}
+
+[data-favoritos-vazio] {
+    margin-bottom: var(--espaco-5);
+}
+
+@media (min-width: 480px) {
+    .cabecalho-projetos {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.botao-projeto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-self: stretch;
+    margin-top: auto;
+    text-align: center;
+}
+
+.botao-projeto span {
+    margin-left: var(--espaco-3);
+    font-size: 1.2em;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.botao-projeto:hover span {
+    transform: translateX(0.25rem);
+}
+
+.pagina-projetos .bloco {
+    margin-top: var(--espaco-6);
+}
+
+@media (min-width: 768px) {
+    .pagina-projetos .grade > *,
+    .pagina-projetos .duas-colunas > * {
+        grid-column: span 6;
+    }
+}
+
+@media (min-width: 1024px) {
+    .pagina-projetos .grade > * {
+        grid-column: span 4;
+    }
+}
+
+
+/* =====================================================
+   PÁGINA DE CADASTRO (.pagina-cadastro) — rotas "cadastro",
+   "cadastro-voluntario" e "cadastro-participante"
+   Mobile-first, ponto de quebra: 768 px.
+   ===================================================== */
+
+.pagina-cadastro .container {
+    --largura-conteudo: 56.25rem;
+}
+
+.pagina-cadastro main,
+.pagina-cadastro #app {
+    padding-top: var(--espaco-7);
+}
+
+.pagina-cadastro h1 {
+    text-align: center;
+}
+
+.pagina-cadastro .introducao {
+    max-width: 45rem;
+    margin: 0 auto var(--espaco-6);
+    text-align: center;
+}
+
+.tipos-cadastro {
+    margin-bottom: var(--espaco-7);
+}
+
+.tipos-cadastro h2 {
+    margin-bottom: var(--espaco-5);
+    text-align: center;
+}
+
+/* Base = celular: um card de escolha por linha. */
+.tipos-cadastro-grade {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaco-5);
+}
+
+.tipo-cadastro {
+    display: flex;
+    min-height: 13rem;
+    flex-direction: column;
+    padding: var(--espaco-5);
+    border: 0.125rem solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-cartao);
+    color: var(--cor-texto);
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.tipo-cadastro:hover {
+    border-color: var(--cor-secundaria);
+    box-shadow: var(--sombra-destaque);
+    transform: translateY(-0.2rem);
+}
+
+.tipo-cadastro:active {
+    border-color: var(--cor-secundaria);
+    box-shadow: var(--sombra-cartao);
+    transform: translateY(0.0625rem);
+}
+
+.tipo-numero {
+    color: var(--cor-destaque);
+    font-weight: 800;
+}
+
+.tipo-cadastro h3 {
+    margin: var(--espaco-2) 0 0;
+}
+
+.tipo-link {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    color: var(--cor-secundaria-escura);
+    font-weight: 800;
+}
+
+.orientacao-formulario {
+    margin-top: calc(var(--espaco-2) * -1);
+    color: var(--cor-texto-suave);
+}
+
+/* Base = celular: menos preenchimento interno no formulário. */
+.pagina-cadastro form {
+    padding: 1.125rem;
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: 0 0.5rem 1.5rem rgba(18, 59, 93, 0.12);
+}
+
+.pagina-cadastro fieldset {
+    margin: 0 0 1.75rem;
+    padding: 1.125rem;
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: 0.625rem;
+}
+
+.pagina-cadastro legend {
+    padding: 0 0.5625rem;
+    color: var(--cor-primaria);
+    font-size: var(--fonte-md);
+    font-weight: 800;
+}
+
+/* Base = celular: um campo por linha. .grade colide entre
+   inicial/projetos/cadastro. */
+.pagina-cadastro .grade {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-5);
+}
+
+.pagina-cadastro .grade > * {
+    grid-column: 1 / -1;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagina-cadastro label {
+    margin-bottom: var(--espaco-1);
+    font-weight: 700;
+}
+
+.pagina-cadastro input,
+.pagina-cadastro select,
+.pagina-cadastro textarea {
+    width: 100%;
+    padding: 0.6875rem var(--espaco-3);
+    border: 0.0625rem solid var(--cor-borda-campo);
+    border-radius: 0.4375rem;
+    background: var(--cor-branco);
+    color: var(--cor-texto);
+    font: inherit;
+}
+
+.pagina-cadastro textarea {
+    min-height: 7.5rem;
+    resize: vertical;
+}
+
+.ajuda {
+    margin-top: var(--espaco-1);
+    color: var(--cor-texto-suave);
+    font-size: var(--fonte-xs);
+}
+
+.opcoes {
+    display: grid;
+    gap: var(--espaco-2);
+}
+
+.opcao {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--espaco-2);
+}
+
+.opcao input {
+    width: auto;
+    margin-top: 0.375rem;
+}
+
+.opcao label {
+    margin: 0;
+    font-weight: 400;
+}
+
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-3);
+}
+
+/* Base = celular: botões de ação ocupam a largura toda. */
+.acoes button {
+    width: 100%;
+}
+
+.status-formulario {
+    font-weight: 700;
+}
+
+.pagina-cadastro button {
+    padding: var(--espaco-3) var(--espaco-5);
+    border: 0;
+    border-radius: var(--raio-sm);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+}
+
+.pagina-cadastro button[type="submit"] {
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+.pagina-cadastro button[type="submit"]:hover {
+    background: var(--cor-secundaria-escura);
+}
+
+.pagina-cadastro button[type="reset"] {
+    background: #dce5e9;
+    color: var(--cor-texto);
+}
+
+@media (min-width: 768px) {
+    .tipos-cadastro-grade {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pagina-cadastro .grade > * {
+        grid-column: span 6;
+    }
+
+    .pagina-cadastro .grade > .campo-total {
+        grid-column: 1 / -1;
+    }
+
+    .pagina-cadastro form {
+        padding: 1.875rem;
+    }
+
+    .pagina-cadastro fieldset {
+        padding: var(--espaco-5);
+    }
+
+    .acoes button {
+        width: auto;
+    }
+}
+
+
+/* =====================================================
+   PÁGINA DE DOAÇÃO (.pagina-doacao) — rota "doacao"
+   Mobile-first, ponto de quebra: 768 px.
+   ===================================================== */
+
+.pagina-doacao main,
+.pagina-doacao #app {
+    padding-bottom: 0;
+}
+
+/* Base = celular: menos preenchimento vertical nas seções.
+   .secao colide com a versão fixa da página inicial. */
+.pagina-doacao .secao {
+    padding: var(--espaco-7) 0;
+}
+
+.doacao-hero {
+    padding: var(--espaco-7) 0;
+    background: linear-gradient(120deg, #e4f3f0 0%, #f4f7f8 58%, #fff7df 100%);
+}
+
+.hero-grid,
+.materiais-grid,
+.parceria-conteudo {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espaco-7);
+    align-items: center;
+}
+
+/* Base = celular: hero, materiais e parceria empilhados. */
+.hero-conteudo,
+.hero-imagem,
+.materiais-grid > :first-child,
+.lista-materiais,
+.parceria-conteudo > :first-child {
+    grid-column: 1 / -1;
+}
+
+.parceria-conteudo {
+    grid-template-columns: 1fr;
+}
+
+.hero-conteudo h1 {
+    max-width: 36rem;
+}
+
+.hero-conteudo > p:not(.etiqueta) {
+    max-width: 34rem;
+    font-size: var(--fonte-md);
+}
+
+/* .etiqueta colide entre inicial/doação (cor diferente). */
+.pagina-doacao .etiqueta {
+    margin: 0 0 var(--espaco-2);
+    color: var(--cor-secundaria-escura);
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* .hero-acoes colide com a versão (com stack no mobile) da
+   página inicial. */
+.pagina-doacao .hero-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espaco-3);
+    margin-top: var(--espaco-5);
+}
+
+.pagina-doacao .hero-acoes .botao {
+    margin-top: 0;
+}
+
+.pagina-doacao .botao-contorno {
+    border: 0.0625rem solid var(--cor-secundaria);
+    background: transparent;
+    color: var(--cor-secundaria-escura);
+}
+
+.pagina-doacao .botao-contorno:hover {
+    color: var(--cor-branco);
+}
+
+.hero-imagem {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--raio-lg);
+    background: var(--cor-primaria);
+    box-shadow: var(--sombra-destaque);
+}
+
+.hero-imagem img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+}
+
+.hero-imagem figcaption {
+    padding: var(--espaco-3) var(--espaco-4);
+    color: var(--cor-branco);
+    font-weight: 700;
+}
+
+.secao-cabecalho {
+    max-width: 43rem;
+    margin-bottom: var(--espaco-6);
+}
+
+.pagina-doacao .secao h2,
+.bloco-doacao h2,
+.parceria-conteudo h2,
+.transparencia-conteudo h2 {
+    margin-top: 0;
+}
+
+/* Base = celular: uma forma de doação por linha. */
+.formas-doacao {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaco-5);
+}
+
+.forma-doacao,
+.forma-destaque,
+.bloco-doacao {
+    padding: var(--espaco-5);
+    border: 0.0625rem solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+}
+
+.forma-destaque {
+    border-color: var(--cor-secundaria);
+    box-shadow: var(--sombra-destaque);
+}
+
+.numero-forma {
+    margin: 0 0 var(--espaco-3);
+    color: var(--cor-destaque);
+    font-weight: 800;
+}
+
+.forma-doacao h3,
+.forma-destaque h3 {
+    margin-top: 0;
+}
+
+.chave-pix {
+    overflow-wrap: anywhere;
+    flex: 1;
+    margin: 0;
+    padding: var(--espaco-3);
+    border-radius: var(--raio-sm);
+    background: #e4f3f0;
+    color: var(--cor-primaria);
+    font-weight: 800;
+}
+
+/* Base = celular: chave Pix e botão de copiar empilhados. */
+.pix-controle {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--espaco-2);
+}
+
+.botao-copiar {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: var(--espaco-2) var(--espaco-3);
+    border: 0.0625rem solid var(--cor-secundaria);
+    border-radius: var(--raio-sm);
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.botao-copiar:hover {
+    background: var(--cor-secundaria-escura);
+}
+
+.status-interacao {
+    min-height: 1.6em;
+    margin: var(--espaco-2) 0 0;
+    color: var(--cor-secundaria-escura);
+    font-size: var(--fonte-xs);
+    font-weight: 800;
+}
+
+.nota {
+    color: var(--cor-texto-suave);
+    font-size: var(--fonte-xs);
+}
+
+.link-seta {
+    display: inline-block;
+    margin-top: var(--espaco-3);
+    color: var(--cor-secundaria-escura);
+    font-weight: 800;
+    text-decoration-thickness: 0.125rem;
+    text-underline-offset: 0.2em;
+}
+
+.link-seta span {
+    display: inline-block;
+    margin-left: var(--espaco-2);
+    transition: transform 0.2s ease;
+}
+
+.link-seta:hover span {
+    transform: translateX(0.25rem);
+}
+
+.faixa-clara {
+    background: var(--cor-branco);
+}
+
+.lista-bloco {
+    padding-left: var(--espaco-4);
+    border-left: 0.25rem solid var(--cor-destaque);
+}
+
+.lista-bloco h3 {
+    margin-top: 0;
+}
+
+.pagina-doacao ul {
+    padding-left: var(--espaco-5);
+}
+
+.pagina-doacao li + li {
+    margin-top: var(--espaco-2);
+}
+
+/* Base = celular: os dois blocos de entrega empilhados. */
+.duas-colunas-doacao {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espaco-5);
+}
+
+.bloco-doacao address {
+    display: grid;
+    gap: var(--espaco-2);
+    margin: var(--espaco-5) 0;
+    font-style: normal;
+}
+
+.aviso {
+    background: #fff7df;
+    border-color: #f1d27b;
+}
+
+.faixa-escura {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.faixa-escura h2,
+.faixa-escura .etiqueta {
+    color: var(--cor-branco);
+}
+
+.parceria-conteudo > :first-child {
+    min-width: 0;
+}
+
+/* Base = celular: botão de parceria ocupa a linha toda. */
+.parceria-conteudo > .botao {
+    justify-self: start;
+    width: 100%;
+    min-width: 13rem;
+    margin-top: 0;
+    text-align: center;
+}
+
+/* .botao-amarelo colide com a versão (!important, hover
+   diferente) da página inicial. */
+.pagina-doacao .botao-amarelo {
+    background: var(--cor-destaque);
+    color: #261c05;
+}
+
+.pagina-doacao .botao-amarelo:hover {
+    background: #ffd477;
+    color: #261c05;
+}
+
+.transparencia {
+    background: var(--cor-fundo);
+}
+
+.transparencia-conteudo {
+    max-width: 50rem;
+    text-align: center;
+}
+
+.transparencia-conteudo .etiqueta {
+    color: var(--cor-secundaria-escura);
+}
+
+.contato-final {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--espaco-4) var(--espaco-6);
+    margin-top: var(--espaco-5);
+    font-weight: 800;
+}
+
+@media (min-width: 768px) {
+    .doacao-hero,
+    .pagina-doacao .secao {
+        padding: var(--espaco-8) 0;
+    }
+
+    .hero-conteudo,
+    .hero-imagem {
+        grid-column: span 6;
+    }
+
+    .materiais-grid > :first-child {
+        grid-column: span 5;
+    }
+
+    .lista-materiais {
+        grid-column: span 7;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .parceria-conteudo {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .parceria-conteudo > :first-child {
+        grid-column: auto;
+    }
+
+    .parceria-conteudo > .botao {
+        justify-self: end;
+        width: auto;
+    }
+
+    .formas-doacao {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .duas-colunas-doacao {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pix-controle {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .botao-copiar {
+        width: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cartao-link,
+    .hero-slide,
+    .botao-projeto span,
+    .link-seta span {
+        transition: none;
+    }
+}
