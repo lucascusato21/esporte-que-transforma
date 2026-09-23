@@ -62,7 +62,7 @@ Não há instalação NPM nem etapa de build nesta versão. Prefira HTTP local a
 | `esporte-que-transforma:ultima-rota` | Identificador da última rota visitada |
 | `esporte-que-transforma:rascunho-mensagem-voluntario` | Texto livre digitado no campo de mensagem do formulário de voluntariado |
 
-Os favoritos usam os dados originais de `templates.js` para títulos, imagens e descrições. O botão “Limpar favoritos” remove somente a seleção de projetos. Os dados ficam no navegador e na origem utilizados; não são sincronizados entre dispositivos e podem ser perdidos ao limpar os dados do site.
+Os favoritos usam os dados originais de `templates.js` para títulos, imagens e descrições. Na inicialização, somente um array de IDs existentes é aceito; duplicados, tipos inválidos e IDs desconhecidos são descartados. JSON corrompido, localStorage bloqueado e falhas de leitura ou gravação resultam em uma lista vazia ou em estado mantido apenas na memória durante a visita. Nesse caso, a interface continua permitindo salvar, remover, filtrar e limpar, mas o aviso informa que a alteração não será mantida para a próxima visita. O botão “Limpar favoritos” remove somente a seleção de projetos.
 
 O texto livre do rascunho pode conter informações pessoais inseridas pelo usuário. Use dados fictícios na demonstração. A persistência desse campo precisa ser revista antes de uso real. Não há backend para receber os cadastros.
 
@@ -95,14 +95,20 @@ Abra um pull request com destino a `develop`, descrevendo a mudança e as verifi
 
 ## Verificações e pendências
 
-Na preparação deste repositório, foram verificadas a sintaxe dos nove arquivos JavaScript com `node --check` e a existência dos recursos locais diretamente referenciados por `src` e `href` no `index.html`. Essas verificações passaram.
+Em uma preparação anterior, foram registradas a verificação da sintaxe dos nove arquivos JavaScript com `node --check` e a existência dos recursos locais diretamente referenciados por `src` e `href` no `index.html`.
 
-Não foram executados nesta preparação testes interativos de navegador, leitor de tela, persistência após reabertura, responsividade ou auditoria completa WCAG. As capturas preexistentes não substituem essa validação.
+Ainda não foram executados testes com leitor de tela, responsividade ou auditoria completa WCAG. As capturas preexistentes não substituem essa validação.
 
-Pendências identificadas por leitura do código:
+Mudanças e verificações desta correção de favoritos:
 
-- Validar a estrutura dos favoritos após `JSON.parse()`: confirmar array, remover duplicados e descartar IDs desconhecidos. Atualmente JSON sintaticamente válido com tipo incorreto pode causar falha.
-- Manter favoritos em memória quando o armazenamento estiver indisponível; essa alternativa ainda não está implementada.
+- A lista recuperada é validada contra os três IDs definidos em `templates.js`, com remoção de duplicados e descarte de valores inválidos.
+- Falhas de JSON e de acesso ao localStorage não interrompem a aplicação; alterações posteriores ficam em memória durante a visita quando necessário.
+- Foram verificados no navegador integrado via `http://localhost:8765/`: operação inválida com ID desconhecido sem alteração de estado e sem feedback de sucesso ou persistência; salvar e remover com persistência; filtrar e limpar; atualização de texto, `aria-pressed`, filtro e mensagem vazia; e restauração de um favorito após recarregar com armazenamento disponível.
+- O servidor HTTP foi executado com `System.Net.HttpListener` em um job do PowerShell, pois `node` e `python` não estão disponíveis neste ambiente.
+- A sintaxe foi verificada pelo diagnóstico do editor, sem erros nos arquivos alterados. Não foi possível executar `node --check` nem iniciar `python -m http.server`, pois `node` e `python` não estão disponíveis neste ambiente.
+
+Pendências que permanecem fora desta correção:
+
 - Rever a persistência do texto livre de voluntariado.
 - Realizar testes manuais e automatizados de acessibilidade aplicáveis à WCAG 2.1 AA, incluindo teclado, foco, contraste, zoom e mensagens de erro. Ainda não se declara conformidade.
 - Medir performance e preparar otimizações e publicação de produção.

@@ -660,6 +660,7 @@ window.ONG.templates = (function () {
 
     return {
         PROJETOS,
+        listarIdsProjetos: () => PROJETOS.map((projeto) => projeto.id),
         buscarProjeto,
         paginaInicio,
         paginaProjetos,

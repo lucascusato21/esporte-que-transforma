@@ -81,6 +81,9 @@
         };
 
         if (componentes) {
+            if (componentes.configurarFavoritos && templates.listarIdsProjetos) {
+                componentes.configurarFavoritos(templates.listarIdsProjetos());
+            }
             componentes.inicializarToast();
             componentes.inicializarCopiaPix();
             componentes.inicializarFavoritos();
