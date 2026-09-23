@@ -19,6 +19,8 @@ window.ONG.componentes = (function () {
     let toastFecharRegistrado = false;
     let pixDelegacaoRegistrada = false;
     let favoritosDelegacaoRegistrada = false;
+    let idsProjetos = new Set();
+    let favoritosMemoria = [];
 
     function badgeHTML(texto, classe) {
         return `<span class="badge ${classe}">${texto}</span>`;
@@ -125,8 +127,21 @@ window.ONG.componentes = (function () {
        descrição no array original PROJETOS na hora de renderizar.
        ===================================================== */
 
+    function normalizarFavoritos(valor) {
+        if (!Array.isArray(valor)) return [];
+        return [...new Set(valor.filter((id) => typeof id === "string" && idsProjetos.has(id)))];
+    }
+
+    function configurarFavoritos(ids) {
+        idsProjetos = new Set(Array.isArray(ids) ? ids : []);
+        const recuperados = armazenamento
+            ? armazenamento.lerPreferencia(CHAVE_FAVORITOS, [])
+            : [];
+        favoritosMemoria = normalizarFavoritos(recuperados);
+    }
+
     function listarFavoritos() {
-        return armazenamento ? armazenamento.lerPreferencia(CHAVE_FAVORITOS, []) : [];
+        return favoritosMemoria.slice();
     }
 
     function estaFavorito(id) {
@@ -138,23 +153,29 @@ window.ONG.componentes = (function () {
        se confirma a ação ao usuário ou não (nunca confirmar uma
        gravação que falhou). */
     function alternarFavorito(id) {
+        if (!idsProjetos.has(id)) return { favoritado: false, persistido: true };
+
         const atuais = listarFavoritos();
         const indice = atuais.indexOf(id);
         let favoritado;
         if (indice === -1) { atuais.push(id); favoritado = true; }
         else { atuais.splice(indice, 1); favoritado = false; }
+        favoritosMemoria = atuais;
 
-        let sucesso = true;
+        let persistido = false;
         if (armazenamento) {
-            sucesso = atuais.length
+            persistido = atuais.length
                 ? armazenamento.salvarPreferencia(CHAVE_FAVORITOS, atuais)
                 : armazenamento.removerPreferencia(CHAVE_FAVORITOS);
         }
-        return { favoritado, sucesso };
+        return { favoritado, persistido };
     }
 
     function limparFavoritos() {
-        return armazenamento ? armazenamento.removerPreferencia(CHAVE_FAVORITOS) : true;
+        favoritosMemoria = [];
+        return {
+            persistido: armazenamento ? armazenamento.removerPreferencia(CHAVE_FAVORITOS) : false
+        };
     }
 
     function botaoFavoritoHTML(id, titulo) {
@@ -198,50 +219,51 @@ window.ONG.componentes = (function () {
         if (botao) botao.hidden = listarFavoritos().length === 0;
     }
 
+    function atualizarBotoesFavoritos() {
+        const favoritos = listarFavoritos();
+        document.querySelectorAll("[data-favorito]").forEach((botao) => {
+            const favorito = favoritos.includes(botao.dataset.favorito);
+            botao.textContent = favorito ? "Remover dos favoritos" : "Salvar projeto";
+            botao.setAttribute("aria-pressed", String(favorito));
+        });
+    }
+
+    function atualizarInterfaceFavoritos() {
+        atualizarBotoesFavoritos();
+        aplicarFiltroFavoritos();
+        atualizarBotaoLimparFavoritos();
+    }
+
     function aoClicarFavorito(botao) {
         const id = botao.dataset.favorito;
         const titulo = botao.dataset.favoritoTitulo || "Projeto";
         const resultado = alternarFavorito(id);
 
-        if (!resultado.sucesso) {
-            /* Nunca confirma uma gravação que não aconteceu: o botão
-               mantém o texto e o aria-pressed que já tinha. */
-            mostrarToast("Não foi possível salvar sua preferência neste navegador.", "atencao");
-            return;
-        }
-
-        botao.textContent = resultado.favoritado ? "Remover dos favoritos" : "Salvar projeto";
-        botao.setAttribute("aria-pressed", String(resultado.favoritado));
-        mostrarToast(
-            resultado.favoritado ? `"${titulo}" foi adicionado aos favoritos.` : `"${titulo}" foi removido dos favoritos.`,
-            "sucesso"
-        );
-        aplicarFiltroFavoritos();
-        atualizarBotaoLimparFavoritos();
+        atualizarInterfaceFavoritos();
+        const acao = resultado.favoritado ? "adicionado aos favoritos" : "removido dos favoritos";
+        const mensagem = resultado.persistido
+            ? `"${titulo}" foi ${acao}.`
+            : `"${titulo}" foi ${acao} somente nesta visita. A alteração não será mantida para a próxima visita.`;
+        mostrarToast(mensagem, resultado.persistido ? "sucesso" : "atencao");
     }
 
     function aoClicarFiltroFavoritos(toggle) {
         const ativo = toggle.getAttribute("aria-pressed") !== "true";
         toggle.setAttribute("aria-pressed", String(ativo));
         toggle.textContent = ativo ? "Mostrar todos os projetos" : "Mostrar somente favoritos";
-        aplicarFiltroFavoritos();
+        atualizarInterfaceFavoritos();
     }
 
     function aoClicarLimparFavoritos(botao) {
         if (!listarFavoritos().length) return;
-        const sucesso = limparFavoritos();
-        if (!sucesso) {
-            mostrarToast("Não foi possível limpar os favoritos neste navegador.", "atencao");
-            return;
-        }
-
-        document.querySelectorAll("[data-favorito]").forEach((botaoFavorito) => {
-            botaoFavorito.textContent = "Salvar projeto";
-            botaoFavorito.setAttribute("aria-pressed", "false");
-        });
-        aplicarFiltroFavoritos();
-        atualizarBotaoLimparFavoritos();
-        mostrarToast("Seus favoritos foram removidos.", "sucesso");
+        const resultado = limparFavoritos();
+        atualizarInterfaceFavoritos();
+        mostrarToast(
+            resultado.persistido
+                ? "Seus favoritos foram removidos."
+                : "Seus favoritos foram removidos somente nesta visita. A alteração não será mantida para a próxima visita.",
+            resultado.persistido ? "sucesso" : "atencao"
+        );
     }
 
     function inicializarFavoritos() {
@@ -263,6 +285,7 @@ window.ONG.componentes = (function () {
         mostrarToast,
         inicializarToast,
         inicializarCopiaPix,
+        configurarFavoritos,
         listarFavoritos,
         estaFavorito,
         botaoFavoritoHTML,
