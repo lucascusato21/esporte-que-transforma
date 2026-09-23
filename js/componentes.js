@@ -153,7 +153,7 @@ window.ONG.componentes = (function () {
        se confirma a ação ao usuário ou não (nunca confirmar uma
        gravação que falhou). */
     function alternarFavorito(id) {
-        if (!idsProjetos.has(id)) return { favoritado: false, persistido: true };
+        if (!idsProjetos.has(id)) return { valido: false, favoritado: null, persistido: null };
 
         const atuais = listarFavoritos();
         const indice = atuais.indexOf(id);
@@ -168,7 +168,7 @@ window.ONG.componentes = (function () {
                 ? armazenamento.salvarPreferencia(CHAVE_FAVORITOS, atuais)
                 : armazenamento.removerPreferencia(CHAVE_FAVORITOS);
         }
-        return { favoritado, persistido };
+        return { valido: true, favoritado, persistido };
     }
 
     function limparFavoritos() {
@@ -238,6 +238,11 @@ window.ONG.componentes = (function () {
         const id = botao.dataset.favorito;
         const titulo = botao.dataset.favoritoTitulo || "Projeto";
         const resultado = alternarFavorito(id);
+
+        if (!resultado.valido) {
+            mostrarToast("Não foi possível alterar este favorito: projeto inválido.", "atencao");
+            return;
+        }
 
         atualizarInterfaceFavoritos();
         const acao = resultado.favoritado ? "adicionado aos favoritos" : "removido dos favoritos";

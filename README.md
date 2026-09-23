@@ -103,7 +103,8 @@ Mudanças e verificações desta correção de favoritos:
 
 - A lista recuperada é validada contra os três IDs definidos em `templates.js`, com remoção de duplicados e descarte de valores inválidos.
 - Falhas de JSON e de acesso ao localStorage não interrompem a aplicação; alterações posteriores ficam em memória durante a visita quando necessário.
-- Foram verificados no navegador integrado: restauração com IDs desconhecidos, duplicados e tipos inválidos; JSON corrompido; salvar, filtrar e limpar com armazenamento bloqueado; feedback sem promessa de persistência; atualização de texto, `aria-pressed`, filtro e mensagem vazia; e restauração de um favorito após recarregar com armazenamento disponível.
+- Foram verificados no navegador integrado via `http://localhost:8765/`: operação inválida com ID desconhecido sem alteração de estado e sem feedback de sucesso ou persistência; salvar e remover com persistência; filtrar e limpar; atualização de texto, `aria-pressed`, filtro e mensagem vazia; e restauração de um favorito após recarregar com armazenamento disponível.
+- O servidor HTTP foi executado com `System.Net.HttpListener` em um job do PowerShell, pois `node` e `python` não estão disponíveis neste ambiente.
 - A sintaxe foi verificada pelo diagnóstico do editor, sem erros nos arquivos alterados. Não foi possível executar `node --check` nem iniciar `python -m http.server`, pois `node` e `python` não estão disponíveis neste ambiente.
 
 Pendências que permanecem fora desta correção:
