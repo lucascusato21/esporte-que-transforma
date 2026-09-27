@@ -53,7 +53,8 @@ window.ONG.navegacao = (function () {
         if (!registroRotas[rota]) {
             const alvo = document.getElementById(rota);
             if (alvo && app.contains(alvo)) {
-                alvo.scrollIntoView({ behavior: "smooth", block: "start" });
+                const comportamento = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+                alvo.scrollIntoView({ behavior: comportamento, block: "start" });
                 return;
             }
         }
@@ -125,6 +126,7 @@ window.ONG.navegacao = (function () {
         if (!submenu || !subToggle) return;
         submenu.hidden = !aberto;
         subToggle.setAttribute("aria-expanded", String(aberto));
+        subToggle.setAttribute("aria-label", aberto ? "Fechar projetos" : "Abrir projetos");
     }
 
     function definirMenu(aberto) {

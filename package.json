@@ -1,0 +1,23 @@
+{
+  "name": "esporte-que-transforma",
+  "version": "1.0.0",
+  "private": true,
+<<<<<<< HEAD
+=======
+  "type": "module",
+>>>>>>> 33eef85 (build: configura Vite e valida build de produção)
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+<<<<<<< HEAD
+    "vite": "^7.1.7"
+  }
+}
+=======
+    "vite": "^6.3.5"
+  }
+}
+>>>>>>> 33eef85 (build: configura Vite e valida build de produção)

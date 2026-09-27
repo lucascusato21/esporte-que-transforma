@@ -78,7 +78,8 @@ window.ONG.formularios = (function () {
             grupo.appendChild(mensagem);
         }
         mensagem.textContent = mensagemPara(campo);
-        campo.setAttribute("aria-describedby", mensagem.id);
+        const descricoes = [campo.dataset.originalDescribedby, mensagem.id].filter(Boolean).join(" ");
+        campo.setAttribute("aria-describedby", descricoes);
         return false;
     }
 

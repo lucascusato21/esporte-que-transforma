@@ -59,6 +59,10 @@
     pointer-events: auto;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide { transition: none; }
+}
+
 .hero-slide img {
     width: 100%;
     height: 35.625rem;
@@ -82,6 +86,26 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--espaco-3);
+}
+
+.hero-pausa {
+    position: absolute;
+    z-index: 3;
+    top: var(--espaco-4);
+    right: var(--espaco-5);
+    padding: var(--espaco-2) var(--espaco-3);
+    border: 0.0625rem solid var(--cor-branco);
+    border-radius: var(--raio-sm);
+    background: rgba(9, 40, 62, 0.88);
+    color: var(--cor-branco);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.hero-pausa:hover,
+.hero-pausa[aria-pressed="true"] {
+    background: var(--cor-secundaria);
 }
 
 .hero-seta,
@@ -126,7 +150,7 @@
     position: absolute;
     z-index: 1;
     right: var(--espaco-5);
-    bottom: 1.875rem;
+    bottom: 4.5rem;
     left: var(--espaco-5);
     width: auto;
     color: var(--cor-branco);
@@ -191,7 +215,7 @@
 }
 
 .botao-historia {
-    background: var(--cor-secundaria) !important;
+    background: var(--cor-secundaria-escura) !important;
     color: var(--cor-branco) !important;
 }
 
@@ -200,7 +224,7 @@
 }
 
 .pagina-inicial .botao {
-    background: var(--cor-secundaria);
+    background: var(--cor-secundaria-escura);
     color: var(--cor-branco);
 }
 
@@ -413,7 +437,7 @@
     margin-top: auto;
     padding: var(--espaco-3) var(--espaco-5);
     border-radius: 0.5625rem;
-    background: var(--cor-secundaria);
+    background: var(--cor-secundaria-escura);
     color: var(--cor-branco);
     font-weight: 800;
     text-align: center;
@@ -449,7 +473,7 @@
 
 .botao-favorito:hover,
 .botao-favorito[aria-pressed="true"] {
-    background: var(--cor-secundaria);
+    background: var(--cor-secundaria-escura);
     color: var(--cor-branco);
 }
 
@@ -915,7 +939,7 @@
 }
 
 .pagina-cadastro button[type="submit"] {
-    background: var(--cor-secundaria);
+    background: var(--cor-secundaria-escura);
     color: var(--cor-branco);
 }
 
@@ -985,6 +1009,11 @@
     align-items: center;
 }
 
+.hero-grid,
+.materiais-grid {
+    grid-template-columns: 1fr;
+}
+
 /* Base = celular: hero, materiais e parceria empilhados. */
 .hero-conteudo,
 .hero-imagem,
@@ -1037,6 +1066,7 @@
 }
 
 .pagina-doacao .botao-contorno:hover {
+    background: var(--cor-secundaria-escura);
     color: var(--cor-branco);
 }
 
@@ -1129,7 +1159,7 @@
     padding: var(--espaco-2) var(--espaco-3);
     border: 0.0625rem solid var(--cor-secundaria);
     border-radius: var(--raio-sm);
-    background: var(--cor-secundaria);
+    background: var(--cor-secundaria-escura);
     color: var(--cor-branco);
     font: inherit;
     font-weight: 800;

@@ -64,7 +64,7 @@
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.toast[hidden] { display: flex; opacity: 0; pointer-events: none; transform: translateY(0.75rem); }
+.toast[hidden] { display: none; }
 .toast::before { flex: 0 0 auto; font-weight: 900; }
 .toast-sucesso { border-color: var(--cor-secundaria); color: var(--cor-secundaria-escura); }
 .toast-sucesso::before { content: "✓"; }
@@ -82,7 +82,7 @@
     cursor: pointer;
 }
 .toast-fechar { background: transparent; color: inherit; font-size: 1.25rem; }
-.toast-acao { background: var(--cor-secundaria); color: var(--cor-branco); }
+.toast-acao { background: var(--cor-secundaria-escura); color: var(--cor-branco); }
 .toast-fechar:hover,
 .toast-acao:hover { filter: brightness(0.92); }
 
@@ -101,6 +101,7 @@ button:active,
 
 button:disabled { cursor: not-allowed; opacity: 0.55; }
 button:disabled:hover { filter: none; transform: none; }
+button[aria-disabled="true"] { cursor: wait; opacity: 0.65; }
 
 .campo.mostrar-erro input,
 .campo.mostrar-erro select,
