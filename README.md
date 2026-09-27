@@ -13,15 +13,17 @@ Projeto acadêmico de desenvolvimento front-end de um site para uma ONG de inclu
 
 ## Tecnologias e arquitetura
 
-HTML5, CSS3 e JavaScript, sem framework e sem dependências NPM. A aplicação principal não importa bibliotecas externas por CDN. Os módulos usam funções encapsuladas e o namespace `window.ONG`; não utilizam `import`/`export`.
+HTML5, CSS3 e JavaScript, sem framework, com Vite como ferramenta de desenvolvimento e build. A única dependência NPM é o Vite, instalada para desenvolvimento. Os módulos mantêm suas responsabilidades e o namespace `window.ONG`; `js/main.js` os importa na ordem necessária.
 
-Os scripts são carregados com `defer`, na ordem definida no `index.html`. O módulo `app.js` reúne as rotas e inicializa navegação, formulários e componentes. A URL utiliza fragmentos, como `index.html#projetos`, com integração ao histórico do navegador.
+O `index.html` é a entrada do Vite e carrega `js/main.js` como módulo. O módulo `app.js` reúne as rotas e inicializa navegação, formulários e componentes. A URL utiliza fragmentos, como `/#projetos`, com integração ao histórico do navegador.
 
 | Caminho | Responsabilidade |
 | --- | --- |
 | `index.html` | Entrada da SPA, cabeçalho, navegação, rodapé e região de notificações |
 | `css/` | Estilos gerais, componentes e páginas |
 | `js/app.js` | Inicialização e registro de rotas |
+| `js/main.js` | Ponto de entrada que importa os módulos da aplicação na ordem necessária |
+| `vite.config.js` | Configuração Vite e cópia das imagens usadas por caminhos dinâmicos na build |
 | `js/templates.js` | Dados dos projetos e geração do conteúdo das páginas |
 | `js/navegacao.js` | Navegação, histórico, foco e menus |
 | `js/formularios.js` | Validação, máscaras e rascunho |
@@ -35,22 +37,30 @@ Os scripts são carregados com `defer`, na ordem definida no `index.html`. O mó
 
 ## Executar localmente
 
-1. Instale o Git e clone o repositório:
+1. Instale Git e Node.js (inclui npm) e clone o repositório:
 
 ```bash
 git clone https://github.com/lucascusato21/esporte-que-transforma.git
 cd esporte-que-transforma
 ```
 
-2. Abra a pasta no VSCode e sirva o `index.html` com uma extensão de servidor local. Como alternativa, com Python 3 instalado, execute na raiz:
+2. Instale as dependências e inicie o servidor de desenvolvimento na raiz:
 
 ```bash
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-3. Acesse `http://localhost:8000` no navegador. Encerre o servidor com `Ctrl+C`.
+3. Abra a URL local informada pelo Vite (por padrão, `http://localhost:5173`). Encerre o servidor com `Ctrl+C`.
 
-Não há instalação NPM nem etapa de build nesta versão. Prefira HTTP local ao duplo clique: o comportamento do armazenamento e de APIs do navegador pode variar em URLs `file://`.
+Para gerar e testar a versão de produção:
+
+```bash
+npm run build
+npm run preview
+```
+
+O resultado da build fica em `dist/`. O plugin local do Vite copia `imagens/` para `dist/imagens/`, pois templates criam dinamicamente os caminhos das imagens durante a execução. Use HTTP local em vez de abrir o HTML por `file://`.
 
 ## Dados no navegador
 
@@ -62,7 +72,7 @@ Não há instalação NPM nem etapa de build nesta versão. Prefira HTTP local a
 | `esporte-que-transforma:ultima-rota` | Identificador da última rota visitada |
 | `esporte-que-transforma:rascunho-mensagem-voluntario` | Texto livre digitado no campo de mensagem do formulário de voluntariado |
 
-Os favoritos usam os dados originais de `templates.js` para títulos, imagens e descrições. O botão “Limpar favoritos” remove somente a seleção de projetos. Os dados ficam no navegador e na origem utilizados; não são sincronizados entre dispositivos e podem ser perdidos ao limpar os dados do site.
+Os favoritos usam os dados originais de `templates.js` para títulos, imagens e descrições. Na inicialização, somente um array de IDs existentes é aceito; duplicados, tipos inválidos e IDs desconhecidos são descartados. JSON corrompido, localStorage bloqueado e falhas de leitura ou gravação resultam em uma lista vazia ou em estado mantido apenas na memória durante a visita. Nesse caso, a interface continua permitindo salvar, remover, filtrar e limpar, mas o aviso informa que a alteração não será mantida para a próxima visita. O botão “Limpar favoritos” remove somente a seleção de projetos.
 
 O texto livre do rascunho pode conter informações pessoais inseridas pelo usuário. Use dados fictícios na demonstração. A persistência desse campo precisa ser revista antes de uso real. Não há backend para receber os cadastros.
 
@@ -95,21 +105,69 @@ Abra um pull request com destino a `develop`, descrevendo a mudança e as verifi
 
 ## Verificações e pendências
 
-Na preparação deste repositório, foram verificadas a sintaxe dos nove arquivos JavaScript com `node --check` e a existência dos recursos locais diretamente referenciados por `src` e `href` no `index.html`. Essas verificações passaram.
+Em uma preparação anterior, foram registradas a verificação da sintaxe dos nove arquivos JavaScript com `node --check` e a existência dos recursos locais diretamente referenciados por `src` e `href` no `index.html`.
 
-Não foram executados nesta preparação testes interativos de navegador, leitor de tela, persistência após reabertura, responsividade ou auditoria completa WCAG. As capturas preexistentes não substituem essa validação.
+Não foi realizado teste com leitor de tela nem auditoria manual completa da WCAG. Os resultados abaixo se limitam às verificações realmente feitas nesta etapa e não representam certificação de conformidade.
 
-Pendências identificadas por leitura do código:
+### Auditoria de acessibilidade (2026-09-27)
 
-- Validar a estrutura dos favoritos após `JSON.parse()`: confirmar array, remover duplicados e descartar IDs desconhecidos. Atualmente JSON sintaticamente válido com tipo incorreto pode causar falha.
-- Manter favoritos em memória quando o armazenamento estiver indisponível; essa alternativa ainda não está implementada.
+Problemas encontrados e corrigidos:
+
+- Ao remover o último favorito com o filtro ativo, o foco permanecia dentro do cartão oculto. Agora volta ao controle do filtro; ao limpar favoritos, o foco também sai do botão que será ocultado.
+- A cópia do Pix desabilitava o botão focado e o fallback criava um textarea invisível que recebia foco. O controle agora permanece focável durante a prevenção de cliques repetidos e o fallback usa a chave visível; o toast devolve o foco à origem ao ser fechado ou expirar.
+- O título da rota recebia foco sem indicador visível. Foi adicionado um contorno de foco com contraste sobre fundos claros e escuros.
+- Os indicadores do carrossel declaravam abas sem implementar o padrão de teclado de abas. Agora são botões de alternância nativos, agrupados e com estado `aria-pressed`; o carrossel e seus controles têm nomes/regiões acessíveis. A rotação pode ser pausada e respeita movimento reduzido.
+- O botão do submenu mantinha o nome “Abrir projetos” quando aberto. O nome agora acompanha o estado e Escape fecha o submenu e o menu móvel na ordem esperada.
+- Texto branco sobre o teal `#1d9b8f` tinha contraste de 3,42:1. Botões textuais usam o teal escuro existente `#14766e` (5,46:1); o hover do botão contornado de doação também passou a ter fundo escuro.
+- Os grids do hero e dos materiais de doação mantinham 12 colunas no mobile e causavam rolagem horizontal. Foram empilhados abaixo do breakpoint desktop; o texto do hero também foi afastado dos controles do carrossel.
+- A região ao vivo do toast incluía seus botões; o anúncio foi limitado à mensagem. Erros de campo mantêm eventuais descrições auxiliares junto da mensagem associada.
+
+Testes executados via navegador integrado, com o site servido por `System.Net.HttpListener` do PowerShell em `http://localhost:8765/`:
+
+- Nas dez rotas: idioma `pt-BR`, um `h1`, hierarquia sem saltos de nível, uma região `main`, links nomeados, imagens com atributo `alt` e campos rotulados.
+- Navegação SPA com Enter, foco no novo título e uso de Voltar/Avançar; menu por Enter/Espaço/Escape; skip link até `main`.
+- Favoritar, filtrar, desfavoritar e limpar com teclado, conferindo o estado salvo, os cartões ocultos e o destino do foco.
+- Formulários de voluntário e participante: envio inválido com foco/descrição do primeiro erro e envio válido com mensagem de sucesso.
+- Pix por teclado com Clipboard disponível e com falha simulada de Clipboard/`execCommand`; seleção manual da chave e fechamento do toast sem perda de foco.
+- Carrossel por teclado: avançar, pausar, retomar e estado com `prefers-reduced-motion` ativo.
+- Reflow nas dez rotas a 641 CSS px (largura equivalente aproximada a 200% de zoom em uma viewport de 1280 CSS px), sem rolagem horizontal. Doação e hero também foram medidos a 480 CSS px; não houve overflow nem sobreposição entre texto e controles do hero.
+- Contrastes calculados pela luminância relativa WCAG: texto/fundo geral 12,22:1; texto suave/fundo 5,95:1; branco/cabeçalho 11,61:1; texto de botão/teal escuro 5,46:1; badges 4,76:1 a 5,12:1; alertas 7,00:1 a 8,37:1; foco amarelo/cabeçalho 6,56:1; texto do rodapé/fundo 12,15:1.
+- Diagnósticos do editor: nenhum erro nos módulos JavaScript alterados. O `git diff --check` literal sinalizou os CR finais do arquivo preexistente `css/componentes.css`, armazenado em CRLF; com `core.whitespace=cr-at-eol`, passou sem outros apontamentos.
+
+Limitações desta verificação:
+
+- Não houve teste com leitor de tela. Axe, Lighthouse e pa11y não estavam disponíveis no ambiente; a árvore de acessibilidade do navegador foi inspecionada, mas não equivale a uma auditoria automática WCAG.
+- O navegador integrado limitou a viewport solicitada de 320 a 480 CSS px. Portanto, 320 CSS px exatos não foram verificados. A largura de 641 CSS px foi usada como aproximação de reflow para 200%; o zoom do navegador não foi alterado diretamente.
+- Não foi feita medição automatizada, pixel a pixel, do texto sobre todas as fotografias e estados de gradiente. A identidade visual e a sobreposição do hero foram conferidas visualmente/por geometria no navegador.
+- Os resultados parciais não declaram conformidade integral com WCAG 2.1 A/AA. Recomenda-se completar as verificações com leitor de tela e viewport real de 320 CSS px.
+
+Mudanças e verificações desta correção de favoritos:
+
+- A lista recuperada é validada contra os três IDs definidos em `templates.js`, com remoção de duplicados e descarte de valores inválidos.
+- Falhas de JSON e de acesso ao localStorage não interrompem a aplicação; alterações posteriores ficam em memória durante a visita quando necessário.
+- Foram verificados no navegador integrado via `http://localhost:8765/`: operação inválida com ID desconhecido sem alteração de estado e sem feedback de sucesso ou persistência; salvar e remover com persistência; filtrar e limpar; atualização de texto, `aria-pressed`, filtro e mensagem vazia; e restauração de um favorito após recarregar com armazenamento disponível.
+- Naquela etapa, o servidor HTTP foi executado com `System.Net.HttpListener` em um job do PowerShell porque Node e Python não estavam disponíveis no PATH. A integração Vite abaixo usou Node portátil temporário e npm.
+- A sintaxe foi verificada pelo diagnóstico do editor, sem erros nos arquivos alterados naquela etapa; não foi possível executar `node --check` naquele ambiente.
+
+### Integração Vite (2026-09-27)
+
+- Branch de trabalho: `feature/vite-build`; sem merge automático para `develop`.
+- `npm.cmd install --no-audit --no-fund --progress=false`: dependências instaladas/atualizadas; Vite 6.4.3 resolvido no lockfile.
+- `npm.cmd run dev -- --host 127.0.0.1 --port 5173`: servidor iniciado; navegador confirmou carregamento dos módulos, navegação SPA, foco no título e favorito persistido.
+- `npm.cmd run build`: build concluída com sucesso; Vite gerou `dist/index.html`, CSS e JavaScript minificados. A configuração copiou `imagens/` para `dist/imagens/`.
+- `npm.cmd run preview -- --host 127.0.0.1 --port 4173`: preview iniciado; navegador confirmou imagem do hero carregada a partir de `dist`, pausa do carrossel, favorito em localStorage e primeiro erro de formulário associado/focado.
+- O Node.js LTS v22.23.3 foi baixado como distribuição portátil para `%TEMP%`, pois Node/npm não estavam instalados no PATH; `npm.cmd` foi usado devido à política PowerShell que bloqueia `npm.ps1`. `dist/` e `node_modules/` são ignorados pelo Git.
+- `git diff --check` passou com `core.whitespace=cr-at-eol` para preservar o CRLF preexistente em `css/componentes.css`.
+
+Pendências que permanecem fora desta correção:
+
 - Rever a persistência do texto livre de voluntariado.
-- Realizar testes manuais e automatizados de acessibilidade aplicáveis à WCAG 2.1 AA, incluindo teclado, foco, contraste, zoom e mensagens de erro. Ainda não se declara conformidade.
+- Completar a verificação com leitor de tela, zoom real de 200% e viewport exata de 320 CSS px; ainda não se declara conformidade integral.
 - Medir performance e preparar otimizações e publicação de produção.
 
 ## Publicação
 
-O projeto pode ser servido como arquivos estáticos, com a raiz contendo `index.html`, `css/`, `js/` e `imagens/`. As rotas da SPA usam hash. Não há comando de build configurado.
+O projeto pode ser servido como arquivos estáticos a partir de `dist/`, gerado por `npm run build`. As rotas da SPA usam hash; `npm run preview` serve localmente a build para conferência antes de publicação.
 
 A criação deste repositório não configura automaticamente deploy ou GitHub Pages. O endereço e as instruções do ambiente definitivo devem ser registrados após sua configuração e verificação.
 

@@ -186,12 +186,18 @@ h3 {
     font-size: var(--fonte-md);
 }
 
+#app h1[tabindex="-1"]:focus {
+    outline: 0.1875rem solid var(--cor-destaque);
+    outline-offset: var(--espaco-2);
+    box-shadow: 0 0 0 0.0625rem var(--cor-primaria);
+}
+
 .botao {
     display: inline-block;
     margin-top: var(--espaco-2);
     padding: var(--espaco-3) var(--espaco-5);
     border-radius: 0.5625rem;
-    background: var(--cor-secundaria);
+    background: var(--cor-secundaria-escura);
     color: var(--cor-branco);
     font-weight: 800;
     text-decoration: none;
@@ -212,6 +218,10 @@ footer {
 
 footer p {
     margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
 }
 
 /* =========================================================
