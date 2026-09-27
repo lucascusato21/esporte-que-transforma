@@ -16,6 +16,7 @@ window.ONG.componentes = (function () {
     const CHAVE_FAVORITOS = "projetos-favoritos";
 
     let toastTimer;
+    let toastOrigem = null;
     let toastFecharRegistrado = false;
     let pixDelegacaoRegistrada = false;
     let favoritosDelegacaoRegistrada = false;
@@ -41,10 +42,24 @@ window.ONG.componentes = (function () {
         };
     }
 
+    function ocultarToast() {
+        const els = elementosToast();
+        if (!els) return;
+        clearTimeout(toastTimer);
+        const devolverFoco = els.toast.contains(document.activeElement);
+        const origem = toastOrigem;
+        els.toast.hidden = true;
+        toastOrigem = null;
+        if (devolverFoco && origem && origem !== document.body && origem.isConnected && !origem.disabled && !origem.closest("[hidden]") && origem.getClientRects().length) {
+            origem.focus();
+        }
+    }
+
     function mostrarToast(mensagem, tipo, acao) {
         const els = elementosToast();
         if (!els || !els.mensagem) return;
         clearTimeout(toastTimer);
+        toastOrigem = document.activeElement === document.body ? null : document.activeElement;
         els.toast.className = `toast toast-${tipo}`;
         els.mensagem.textContent = mensagem;
         if (els.acao) {
@@ -52,17 +67,14 @@ window.ONG.componentes = (function () {
             els.acao.onclick = acao || null;
         }
         els.toast.hidden = false;
-        toastTimer = setTimeout(() => { els.toast.hidden = true; }, 7000);
+        toastTimer = setTimeout(ocultarToast, 7000);
     }
 
     function inicializarToast() {
         if (toastFecharRegistrado) return; // não registra o mesmo listener duas vezes
         const els = elementosToast();
         if (!els || !els.fechar) return;
-        els.fechar.addEventListener("click", () => {
-            clearTimeout(toastTimer);
-            els.toast.hidden = true;
-        });
+        els.fechar.addEventListener("click", ocultarToast);
         toastFecharRegistrado = true;
     }
 
@@ -76,25 +88,24 @@ window.ONG.componentes = (function () {
             await navigator.clipboard.writeText(chave);
             copiou = true;
         } catch (erro) {
-            const auxiliar = document.createElement("textarea");
-            auxiliar.value = chave;
-            auxiliar.setAttribute("readonly", "");
-            auxiliar.style.position = "fixed";
-            auxiliar.style.opacity = "0";
-            document.body.appendChild(auxiliar);
-            auxiliar.select();
-            try { copiou = document.execCommand("copy"); } catch (erroFallback) { copiou = false; }
-            auxiliar.remove();
+            const chaveEl = document.querySelector(".chave-pix");
+            if (chaveEl) {
+                const intervalo = document.createRange();
+                intervalo.selectNodeContents(chaveEl);
+                const selecao = window.getSelection();
+                selecao.removeAllRanges();
+                selecao.addRange(intervalo);
+                try { copiou = document.execCommand("copy"); } catch (erroFallback) { copiou = false; }
+                selecao.removeAllRanges();
+            }
         }
 
         if (copiou) {
             mostrarToast("Chave Pix copiada com sucesso.", "sucesso");
-            /* Desabilita por um instante: evidencia o estado :disabled
-               nativo e evita cópias repetidas em sequência. */
-            botao.disabled = true;
+            botao.setAttribute("aria-disabled", "true");
             botao.setAttribute("aria-label", "Chave Pix copiada");
             setTimeout(() => {
-                botao.disabled = false;
+                botao.removeAttribute("aria-disabled");
                 botao.removeAttribute("aria-label");
             }, 1500);
         } else {
@@ -114,7 +125,7 @@ window.ONG.componentes = (function () {
         if (pixDelegacaoRegistrada) return;
         document.addEventListener("click", (event) => {
             const botao = event.target.closest("[data-copiar-pix]");
-            if (!botao || botao.disabled) return;
+            if (!botao || botao.disabled || botao.getAttribute("aria-disabled") === "true") return;
             copiarChavePix(botao);
         });
         pixDelegacaoRegistrada = true;
@@ -245,6 +256,10 @@ window.ONG.componentes = (function () {
         }
 
         atualizarInterfaceFavoritos();
+        if (botao.closest("[hidden]")) {
+            const filtro = document.querySelector("[data-filtro-favoritos]");
+            if (filtro) filtro.focus();
+        }
         const acao = resultado.favoritado ? "adicionado aos favoritos" : "removido dos favoritos";
         const mensagem = resultado.persistido
             ? `"${titulo}" foi ${acao}.`
@@ -261,8 +276,13 @@ window.ONG.componentes = (function () {
 
     function aoClicarLimparFavoritos(botao) {
         if (!listarFavoritos().length) return;
+        const focoEstavaNoBotao = document.activeElement === botao;
         const resultado = limparFavoritos();
         atualizarInterfaceFavoritos();
+        if (focoEstavaNoBotao) {
+            const filtro = document.querySelector("[data-filtro-favoritos]");
+            if (filtro) filtro.focus();
+        }
         mostrarToast(
             resultado.persistido
                 ? "Seus favoritos foram removidos."

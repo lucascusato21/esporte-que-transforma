@@ -111,7 +111,7 @@ window.ONG.templates = (function () {
         const a = slide.arquivo;
         const ativo = index === 0 ? " ativo" : "";
         const loading = slide.eager ? "eager" : "lazy";
-        return `<picture class="hero-slide${ativo}" data-slide aria-label="Imagem ${index + 1} de ${HERO_SLIDES.length}">
+        return `<picture class="hero-slide${ativo}" id="slide-${a}" data-slide role="group" aria-roledescription="slide" aria-label="Imagem ${index + 1} de ${HERO_SLIDES.length}" aria-hidden="${!slide.eager}">
             <source type="image/webp" srcset="imagens/inicio/webp/${a}-mobile.webp 480w, imagens/inicio/webp/${a}-tablet.webp 768w, imagens/inicio/webp/${a}-laptop.webp 1280w, imagens/inicio/webp/${a}-desktop.webp 1600w" sizes="100vw">
             <img src="imagens/inicio/jpg/${a}-laptop.jpg" srcset="imagens/inicio/jpg/${a}-mobile.jpg 480w, imagens/inicio/jpg/${a}-tablet.jpg 768w, imagens/inicio/jpg/${a}-laptop.jpg 1280w, imagens/inicio/jpg/${a}-desktop.jpg 1600w" sizes="100vw" alt="${slide.alt}" width="1600" height="900" loading="${loading}" decoding="async">
         </picture>`;
@@ -120,7 +120,7 @@ window.ONG.templates = (function () {
     function heroIndicadorHTML(index) {
         const ativo = index === 0 ? " ativo" : "";
         const selecionado = index === 0 ? "true" : "false";
-        return `<button class="hero-indicador${ativo}" type="button" data-slide-control="${index}" role="tab" aria-label="Mostrar imagem ${index + 1}" aria-selected="${selecionado}"></button>`;
+        return `<button class="hero-indicador${ativo}" type="button" data-slide-control="${index}" aria-controls="slide-${HERO_SLIDES[index].arquivo}" aria-label="Mostrar imagem ${index + 1}" aria-pressed="${selecionado}"></button>`;
     }
 
     /* =====================================================
@@ -130,17 +130,18 @@ window.ONG.templates = (function () {
         return `
         <section class="hero" aria-labelledby="titulo-principal">
             <div class="container">
-                <div class="hero-caixa" data-carrossel aria-roledescription="carrossel" aria-label="Imagens da Esporte que Transforma">
+                <div class="hero-caixa" data-carrossel role="region" aria-roledescription="carrossel" aria-label="Imagens da Esporte que Transforma">
                     <div class="hero-slides">
                         ${HERO_SLIDES.map(heroSlideHTML).join("")}
                     </div>
-                    <div class="hero-controles" aria-label="Controles das imagens">
+                    <div class="hero-controles" role="group" aria-label="Controles das imagens">
                         <button class="hero-seta" type="button" data-anterior aria-label="Imagem anterior">&#8592;</button>
-                        <div class="hero-indicadores" role="tablist" aria-label="Escolha uma imagem">
+                        <div class="hero-indicadores" role="group" aria-label="Escolha uma imagem">
                             ${HERO_SLIDES.map((s, i) => heroIndicadorHTML(i)).join("")}
                         </div>
                         <button class="hero-seta" type="button" data-proxima aria-label="Próxima imagem">&#8594;</button>
                     </div>
+                    <button class="hero-pausa" type="button" data-pausar-carrossel aria-pressed="false">Pausar apresentação</button>
                     <div class="hero-texto">
                         <p class="hero-etiqueta">Esporte, cidadania e futuro</p>
                         <h1 id="titulo-principal">O beach tennis abre caminhos e transforma vidas</h1>
