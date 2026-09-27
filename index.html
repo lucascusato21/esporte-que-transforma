@@ -12,13 +12,6 @@
     <meta name="theme-color" content="#123b5d">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/componentes.css">
-    <!-- O SPA é uma página só, então usa um único CSS de estilos
-         específicos (css/paginas.css reúne o que antes eram
-         index.css, projetos.css, cadastro.css e doacao.css, com as
-         classes que colidiam entre páginas escopadas por
-         .pagina-inicial/.pagina-projetos/.pagina-cadastro/.pagina-doacao).
-         Os quatro arquivos originais continuam em css/ para as
-         páginas de referência em html/, que ainda os usam sozinhas. -->
     <link rel="stylesheet" href="css/paginas.css">
     <link rel="stylesheet" href="css/navegacao.css">
 </head>
@@ -60,19 +53,6 @@
         <button class="toast-fechar" type="button" data-toast-close aria-label="Fechar aviso">&times;</button>
     </div>
 
-    <!-- Scripts comuns (sem type="module"): o projeto é distribuído em
-         ZIP para ser aberto direto como arquivo local, e o Chrome/Edge
-         bloqueiam import/export de módulos ES quando a página é aberta
-         via file://. Em vez disso, cada arquivo se registra dentro de
-         um único namespace (window.ONG), o que já separa as
-         responsabilidades pedidas sem depender de servidor. A ordem
-         importa: cada arquivo só usa o que já foi carregado antes. -->
-    <script src="js/armazenamento.js" defer></script>
-    <script src="js/componentes.js" defer></script>
-    <script src="js/formularios.js" defer></script>
-    <script src="js/carrossel.js" defer></script>
-    <script src="js/templates.js" defer></script>
-    <script src="js/navegacao.js" defer></script>
-    <script src="js/app.js" defer></script>
+    <script type="module" src="/js/main.js"></script>
 </body>
 </html>
